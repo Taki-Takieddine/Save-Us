@@ -1,5 +1,6 @@
-import 'package:applicationmemoire/auth/login.dart';
 import 'package:flutter/material.dart';
+
+import 'package:applicationmemoire/auth/login.dart';
 
 class ChooseProfil extends StatefulWidget {
   const ChooseProfil({Key? key, required this.title}) : super(key: key);
@@ -30,17 +31,16 @@ class _ChooseProfilState extends State<ChooseProfil> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              boutton_profil(const Icon(
-                Icons.favorite,
-                color: Colors.white,
-                size: 65,
-              )),
-              boutton_profil(
-                const Icon(Icons.call, color: Colors.white, size: 65),
+            children: const [
+              BouttonProfil(
+                icon: Icons.favorite,
               ),
-              boutton_profil(const Icon(Icons.access_alarm,
-                  color: Colors.white, size: 65)),
+              BouttonProfil(
+                icon: Icons.call,
+              ),
+              BouttonProfil(
+                icon: Icons.access_alarm,
+              ),
             ],
           ),
         ),
@@ -49,9 +49,9 @@ class _ChooseProfilState extends State<ChooseProfil> {
   }
 }
 
-class boutton_profil extends StatelessWidget {
-  final Icon icon;
-  boutton_profil(this.icon);
+class BouttonProfil extends StatelessWidget {
+  final IconData icon;
+  const BouttonProfil({Key? key, required this.icon}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -67,7 +67,11 @@ class boutton_profil extends StatelessWidget {
         ),
         height: 150,
         width: 150,
-        child: icon,
+        child: Icon(
+          icon,
+          color: Colors.white,
+          size: 65,
+        ),
       ),
     );
   }
