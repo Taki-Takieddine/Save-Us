@@ -1,3 +1,4 @@
+import 'package:applicationmemoire/auth/login.dart';
 import 'package:flutter/material.dart';
 
 class ChooseProfil extends StatefulWidget {
@@ -45,18 +46,22 @@ class boutton_profil extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        
+        Navigator.push(
+          context,
+           MaterialPageRoute(builder: ((context) => const LogIn())));
       },
-      child: Container(
-      margin: const EdgeInsets.all(15.0),
-      decoration: BoxDecoration(
-       borderRadius: BorderRadius.circular(10.0) ,
-       color: Colors.transparent.withOpacity(0.15),
-      ),
-      height: 150,
-      width: 150,
-      child: icon,
-      
+      child: Expanded(
+        child: Container(
+        margin: const EdgeInsets.all(15.0),
+        decoration: BoxDecoration(
+         borderRadius: BorderRadius.circular(10.0) ,
+         color: Colors.transparent.withOpacity(0.15),
+        ),
+        height: 150,
+        width: 150,
+        child: icon,
+        
+        ),
       ),
     );
   }

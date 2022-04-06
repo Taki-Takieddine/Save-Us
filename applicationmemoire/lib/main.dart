@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 import 'choose_profil.dart';
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'home',
       theme: ThemeData(
       
