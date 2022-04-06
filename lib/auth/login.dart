@@ -1,6 +1,6 @@
-import 'package:applicationmemoire/auth/input_wrapper.dart';
+import 'package:applicationmemoire/auth/widget/input_wrapper.dart';
 import 'package:flutter/material.dart';
-import 'Header.dart';
+import 'widget/Header.dart';
 
 class LogIn extends StatelessWidget {
   const LogIn({Key? key}) : super(key: key);
