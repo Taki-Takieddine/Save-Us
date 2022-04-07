@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 
 import 'package:applicationmemoire/auth/login.dart';
@@ -24,22 +26,24 @@ class _ChooseProfilState extends State<ChooseProfil> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: <Color>[
-                Color.fromARGB(255, 217, 47, 247),
-                Color.fromARGB(255, 53, 119, 174),
-                Color.fromARGB(255, 109, 189, 112)
+                Colors.purple,
+                Colors.blueAccent,
               ])),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
+            children:const [
+               
               BouttonProfil(
-                icon: Icons.favorite,
+                icon: Icons.restaurant,title: 'Restaurant',
               ),
+             
               BouttonProfil(
-                icon: Icons.call,
+                icon: Icons.directions_bike_rounded ,title: 'Livreur'
               ),
+              
               BouttonProfil(
-                icon: Icons.access_alarm,
+                icon: Icons.security_update_warning_outlined,title: 'Signaler'
               ),
             ],
           ),
@@ -48,10 +52,10 @@ class _ChooseProfilState extends State<ChooseProfil> {
     );
   }
 }
-
 class BouttonProfil extends StatelessWidget {
   final IconData icon;
-  const BouttonProfil({Key? key, required this.icon}) : super(key: key);
+  final String title;
+  const BouttonProfil({Key? key, required this.icon, required this.title}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -60,17 +64,25 @@ class BouttonProfil extends StatelessWidget {
             context, MaterialPageRoute(builder: ((context) => const LogIn())));
       },
       child: Container(
-        margin: const EdgeInsets.all(15.0),
+        margin: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
           color: Colors.transparent.withOpacity(0.15),
         ),
         height: 150,
         width: 150,
-        child: Icon(
-          icon,
-          color: Colors.white,
-          size: 65,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+            icon,
+            color: Colors.white,
+            size: 65,
+          ),
+          const SizedBox(height: 5,),
+         Text( title ,style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold,),),
+          ],
+           
         ),
       ),
     );
