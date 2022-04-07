@@ -33,7 +33,7 @@ class InputFeild extends StatelessWidget {
             ),
           const  SizedBox(height: 30,),
             TextFormField(
-              decoration: const InputDecoration(labelText: 'Password',border: OutlineInputBorder(
+              decoration: const InputDecoration(labelText: 'Mot de passe',border: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent,
                 ),
                

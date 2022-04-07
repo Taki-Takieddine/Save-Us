@@ -1,11 +1,14 @@
-import 'package:applicationmemoire/auth/sign_up.dart';
+import 'package:applicationmemoire/auth/login.dart';
+
+import 'package:applicationmemoire/auth/widget_sign_up/button_signup.dart';
+import 'package:applicationmemoire/auth/widget_sign_up/input_field_su.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'input_field.dart';
-import 'button.dart';
 
-class InputWrapper extends StatelessWidget {
-  const InputWrapper({Key? key}) : super(key: key);
+
+
+class InputWrappersu extends StatelessWidget {
+  const InputWrappersu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,19 +25,16 @@ class InputWrapper extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const InputFeild(),
+               child: const InputFeildsu(),
             ),
             const SizedBox(
               height: 40,
             ),
-            const Text(
-              "mot de passe oublié ?",
-              style: TextStyle(color: Colors.grey),
-            ),
+            
             const SizedBox(
               height: 40,
             ),
-            const Button(),
+            const ButtonSignUp(),
             const SizedBox(height: 20,),
 
                Center(
@@ -44,7 +44,7 @@ class InputWrapper extends StatelessWidget {
                     style: const TextStyle(color: Colors.grey,),
                     children: [
                     TextSpan(
-                      text: 'rejoignez-nous !',
+                      text: 'connectez-vous !',
                       style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.blue,
@@ -52,7 +52,7 @@ class InputWrapper extends StatelessWidget {
                       ),
                    recognizer:TapGestureRecognizer()..onTap=() {
                       Navigator.push(
-                      context, MaterialPageRoute(builder: ((context) => const SignUP())));
+                      context, MaterialPageRoute(builder: ((context) => const LogIn())));
                    }
                     )
                     ],
