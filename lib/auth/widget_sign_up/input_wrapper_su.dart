@@ -52,7 +52,7 @@ class InputWrappersu extends StatelessWidget {
                       ),
                    recognizer:TapGestureRecognizer()..onTap=() {
                       Navigator.push(
-                      context, MaterialPageRoute(builder: ((context) => const LogIn())));
+                      context, MaterialPageRoute(builder: ((context) => const LogIn(title: '',))));
                    }
                     )
                     ],

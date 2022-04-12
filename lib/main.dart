@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-
 import 'choose_profil.dart';
 
 
