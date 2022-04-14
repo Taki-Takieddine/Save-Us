@@ -61,7 +61,7 @@ class BouttonProfil extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: ((context) => const LogIn(title: '',))));
+            context, MaterialPageRoute(builder: ((context) =>  LogIn(title: '',))));
       },
       child: Container(
         margin: const EdgeInsets.all(5.0),
