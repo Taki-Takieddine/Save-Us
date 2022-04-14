@@ -1,5 +1,4 @@
 import 'package:applicationmemoire/screen/restaurent.dart';
-import 'package:applicationmemoire/screen/signaleur.dart';
 import 'package:flutter/material.dart';
 
 
@@ -13,7 +12,7 @@ class Button extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-           MaterialPageRoute(builder: ((context) => const Restaurent(title: '',))));
+           MaterialPageRoute(builder: ((context) => Restaurent(title: 'resto'))));
       },
      child: 
     Container(

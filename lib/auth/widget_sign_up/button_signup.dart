@@ -1,4 +1,5 @@
 import 'package:applicationmemoire/auth/sign_up.dart';
+import 'package:applicationmemoire/screen/signaleur.dart';
 
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class ButtonSignUp extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-           MaterialPageRoute(builder: ((context) => const SignUP())));
+           MaterialPageRoute(builder: ((context) => const Signaleur())));
       },
      child: 
     Container(
