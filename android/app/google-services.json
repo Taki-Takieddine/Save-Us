@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "349825116306",
+    "project_id": "save-us-5345a",
+    "storage_bucket": "save-us-5345a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349825116306:android:865e1436835ea94c855e4b",
+        "android_client_info": {
+          "package_name": "radia.sahraoui.applicationmemoire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349825116306-b0asqhrndnl78k3h6pu8lnkpu4bkrkr2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8DJ6kRrQ2UsMx3y86pgtKzmKrQNjnxaQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349825116306-b0asqhrndnl78k3h6pu8lnkpu4bkrkr2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,7 +8,7 @@ class Signaleur extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Signaleur") ,
+        title: const Text("Signaleur") ,
       ),
       body: Center(
         child: Column(
