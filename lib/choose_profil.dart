@@ -1,5 +1,6 @@
 
 
+import 'package:applicationmemoire/screen/signaleur.dart';
 import 'package:flutter/material.dart';
 
 import 'package:applicationmemoire/auth/login.dart';
@@ -32,19 +33,45 @@ class _ChooseProfilState extends State<ChooseProfil> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children:const [
+            children: [
                
-              BouttonProfil(
+              const BouttonProfil(
                 icon: Icons.restaurant,title: 'Restaurant',
               ),
              
-              BouttonProfil(
+              const BouttonProfil(
                 icon: Icons.directions_bike_rounded ,title: 'Livreur'
               ),
-              
-              BouttonProfil(
-                icon: Icons.security_update_warning_outlined,title: 'Signaler'
-              ),
+               
+               GestureDetector(
+                          onTap: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: ((context) =>  const Signaleur())));
+                     },
+                  child: Container(
+                    margin: const EdgeInsets.all(5.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.transparent.withOpacity(0.15),
+                    ),
+                    height: 150,
+                    width: 150,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(
+                 Icons.security_update_warning_outlined,
+                        color: Colors.white,
+                        size: 65,
+                      ),
+                      SizedBox(height: 5,),
+                    Text("signaler",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,),),
+                      ],
+                      
+                    ),
+                  ),
+                ),
+             
             ],
           ),
         ),
