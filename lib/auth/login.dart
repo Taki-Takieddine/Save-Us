@@ -10,8 +10,9 @@ class LogIn extends StatelessWidget {
   final emailContr=TextEditingController();
   final pwdContr=TextEditingController();
   late final _formKey =GlobalKey<FormState>();
-  LogIn({Key? key, required String title}) : super(key: key);
-
+  final int type;
+  LogIn({Key? key, required String title, required this.type}) : super(key: key);
+ 
   void dispose(){
     emailContr.dispose();
     pwdContr.dispose();
@@ -186,7 +187,7 @@ class LogIn extends StatelessWidget {
                       ),
                    recognizer:TapGestureRecognizer()..onTap=() {
                       Navigator.push(
-                      context, MaterialPageRoute(builder: ((context) => SignUP())));
+                      context, MaterialPageRoute(builder: ((context) => SignUP(type: type,))));
                    }
                     )
                     ],

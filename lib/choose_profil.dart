@@ -4,7 +4,7 @@ import 'package:applicationmemoire/screen/signaleur.dart';
 import 'package:flutter/material.dart';
 
 import 'package:applicationmemoire/auth/login.dart';
-
+late final int type;
 class ChooseProfil extends StatefulWidget {
   const ChooseProfil({Key? key, required this.title}) : super(key: key);
 
@@ -36,11 +36,11 @@ class _ChooseProfilState extends State<ChooseProfil> {
             children: [
                
               const BouttonProfil(
-                icon: Icons.restaurant,title: 'Restaurant',
+                icon: Icons.restaurant,title: 'Restaurant', type:1,
               ),
              
               const BouttonProfil(
-                icon: Icons.directions_bike_rounded ,title: 'Livreur'
+                icon: Icons.directions_bike_rounded ,title: 'Livreur', type: 2,
               ),
                
                GestureDetector(
@@ -59,6 +59,7 @@ class _ChooseProfilState extends State<ChooseProfil> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
+
                         Icon(
                  Icons.security_update_warning_outlined,
                         color: Colors.white,
@@ -81,14 +82,16 @@ class _ChooseProfilState extends State<ChooseProfil> {
 }
 class BouttonProfil extends StatelessWidget {
   final IconData icon;
+   final int type ;
   final String title;
-  const BouttonProfil({Key? key, required this.icon, required this.title}) : super(key: key);
+  const BouttonProfil({Key? key, required this.icon, required this.title, required this.type}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+       
         Navigator.push(
-            context, MaterialPageRoute(builder: ((context) =>  LogIn(title: '',))));
+            context, MaterialPageRoute(builder: ((context) =>  LogIn(title: '', type: type,))));
       },
       child: Container(
         margin: const EdgeInsets.all(5.0),

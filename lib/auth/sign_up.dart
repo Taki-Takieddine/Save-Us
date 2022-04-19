@@ -2,18 +2,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
+import 'package:applicationmemoire/choose_profil.dart';
 import '../screen/signaleur.dart';
 import 'login.dart';
 
 
 class SignUP extends StatelessWidget {
-  SignUP({Key? key}) : super(key: key);
+  final int type;
+  SignUP({Key? key, required this.type,}) : super(key: key);
   final emailContr=TextEditingController();
   final pwdContr=TextEditingController();
   final nomContr=TextEditingController();
   final wilayaContr=TextEditingController();
   final numtelContr=TextEditingController();
+  final nomrestoContr =TextEditingController();
+  final adressContr=TextEditingController();
   late final String confirmePWD;
   late final _formKey =GlobalKey<FormState>();
   @override
@@ -79,27 +82,8 @@ class SignUP extends StatelessWidget {
                  key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            TextFormField(
-              decoration: const InputDecoration(
-                labelText: 'Nom ',
-                border: OutlineInputBorder(),
-                prefixIcon:   Icon(Icons.arrow_right,color: Colors.green,),
-                labelStyle: TextStyle(
-                  fontSize: 15.0,
-                ),
-              ),
-              keyboardType: TextInputType.text,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Nom invalid';
-                }
-                return null;
-              },
-              onSaved: (value) {
-                nomContr.text=value!;
-              },
-            ),
+          children:[
+            textfield(Controller:nomContr, icon: const Icon(Icons.arrow_right,color: Colors.green,), lable: 'nom', return1: 'nom non valid',),
             const  SizedBox(height: 15,),
             TextFormField(
               decoration: const InputDecoration(
@@ -135,7 +119,7 @@ class SignUP extends StatelessWidget {
               keyboardType: TextInputType.number,
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Nom invalid';
+                  return 'Num invalid';
                 }
                 return null;
               },
@@ -143,6 +127,13 @@ class SignUP extends StatelessWidget {
                 numtelContr.text=value.toString();
               },
             ),
+             if(type==1) const  SizedBox(height: 15,),
+            if(type==1)
+              textfield(lable: 'nom du restaurant' , icon: const Icon(Icons.arrow_right,color: Colors.green,), return1:'nom invalid', Controller:nomrestoContr),
+            if(type==1) const  SizedBox(height: 15,),
+             if(type==1)
+              textfield(lable: 'adresse du restaurant' , icon: const Icon(Icons.add_location,color: Colors.green,), return1:'adresse non valid', Controller:adressContr),
+            
              const  SizedBox(height: 15,),
              TextFormField(
               decoration: const InputDecoration(
@@ -190,6 +181,7 @@ class SignUP extends StatelessWidget {
              TextFormField(
               decoration: const InputDecoration(labelText: 'Confirmez mot de passe',border: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent,
+              
                 ),
                
               ),
@@ -204,7 +196,6 @@ class SignUP extends StatelessWidget {
                 return null;
               },
               onSaved: (value) {
-               
               },
             ),
           ],
@@ -267,7 +258,7 @@ class SignUP extends StatelessWidget {
                       ),
                    recognizer:TapGestureRecognizer()..onTap=() {
                       Navigator.push(
-                      context, MaterialPageRoute(builder: ((context) => LogIn(title: '',))));
+                      context, MaterialPageRoute(builder: ((context) => LogIn(title: '', type: type,))));
                    }
                     )
                     ],
@@ -291,5 +282,41 @@ class SignUP extends StatelessWidget {
       email:emailContr.text.trim() , 
       password: pwdContr.text.trim());
       
+  }
+}
+
+class textfield extends StatelessWidget {
+  final String lable;
+  final Icon icon ;
+  final String return1;
+  const textfield({
+    Key? key,
+     required this.lable, required this.icon, required this.return1, required this.Controller,
+  }) : super(key: key);
+
+  final TextEditingController Controller;
+ 
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      decoration: InputDecoration(
+        labelText: lable,
+        border: const OutlineInputBorder(),
+        prefixIcon:   icon,
+        labelStyle: const TextStyle(
+          fontSize: 15.0,
+        ),
+      ),
+      keyboardType: TextInputType.text,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return return1;
+        }
+        return null;
+      },
+      onSaved: (value) {
+        Controller.text=value!;
+      },
+    );
   }
 }
