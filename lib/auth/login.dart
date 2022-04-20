@@ -1,4 +1,5 @@
 import 'package:applicationmemoire/auth/sign_up.dart';
+import 'package:applicationmemoire/screen/livreur.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -145,9 +146,18 @@ class LogIn extends StatelessWidget {
             ),
             GestureDetector(
       onTap: () {
-        logIN().then((value) =>  Navigator.push(
+        logIN().then((value) {
+          if(type==1) {
+            Navigator.push(
           context,
-           MaterialPageRoute(builder: ((context) => const Restaurent(title: 'resto')))) )
+           MaterialPageRoute(builder: ((context) => const Restaurent(title: 'resto'))));
+          }
+          if(type==2) {
+            Navigator.push(
+          context,
+           MaterialPageRoute(builder: ((context) => const Livreur())));
+          }
+        } )
       ;
            
       },

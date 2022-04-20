@@ -1,13 +1,10 @@
-
-class User {
-  User({
+class Users {
+  Users({
     required this.id,
     required this.type,
     required this.name,
     required this.phoneNumber,
     required this.wilaya,
-    required this.mdp,
-    required this.email,
   });
 
   //type 0 admin
@@ -16,27 +13,21 @@ class User {
   final String id;
   final int type;
   final String name;
-  final String phoneNumber;
+  final int phoneNumber;
   final int wilaya;
-  final String mdp;
-  final String email;
-
-  factory User.fromMap(Map<String, dynamic> data, String documentId) {
+  
+  factory Users.fromMap(Map<String, dynamic> data, String documentId) {
     final String id = documentId;
     final int type =data['type'] as int;
     final String name = data['name'] as String;
-    final String phoneNumber = data['phoneNumber'] as String;
+    final int phoneNumber = data['phoneNumber'] as int;
     final int wilaya = data['wilaya'] as int;
-    final String mdp = data['mdp'] as String;
-    final String email = data['email'] as String;
-    return User(
+    return Users(
       id: id,
       type: type,
       name: name,
       phoneNumber: phoneNumber,
       wilaya: wilaya,
-      mdp:mdp,
-      email:email,
     );
   }
 
@@ -51,10 +42,10 @@ class User {
   Map<String, dynamic> toMap() {
     return {
       'name': name,
+      'type':type,
       'phoneNumber': phoneNumber,
       'wilaya': wilaya,
-      'mdp':mdp,
-      'email':email,
+
     };
   }
 }
