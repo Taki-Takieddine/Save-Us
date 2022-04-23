@@ -1,5 +1,11 @@
+
+
 import 'package:applicationmemoire/auth/sign_up.dart';
 import 'package:applicationmemoire/screen/livreur.dart';
+import 'package:applicationmemoire/services/get_user_type.dart';
+
+import 'package:applicationmemoire/services/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +17,9 @@ class LogIn extends StatelessWidget {
   final emailContr=TextEditingController();
   final pwdContr=TextEditingController();
   late final _formKey =GlobalKey<FormState>();
-  final int type;
+  late final int type;
+  
+
   LogIn({Key? key, required String title, required this.type}) : super(key: key);
  
   void dispose(){
@@ -147,16 +155,7 @@ class LogIn extends StatelessWidget {
             GestureDetector(
       onTap: () {
         logIN().then((value) {
-          if(type==1) {
-            Navigator.push(
-          context,
-           MaterialPageRoute(builder: ((context) => const Restaurent(title: 'resto'))));
-          }
-          if(type==2) {
-            Navigator.push(
-          context,
-           MaterialPageRoute(builder: ((context) => const Livreur())));
-          }
+        GetUserType();
         } )
       ;
            
@@ -216,9 +215,21 @@ class LogIn extends StatelessWidget {
     );
    
   }
+  //Stream <List<Users>>readUsers()=>
+  //FirebaseFirestore.instance.collection('Users').snapshots().map((Snapshot)=>
+  //snapshot.docs.map((doc)=>Users.fromMap(doc.data))).toList());
+
+
+
+  // Future getTypeUser(String idUser)async{
+   //var snapshot =await FirebaseFirestore.instance.collection('Users').doc(idUser).get();
+
+  // type = snapshot.data;}
+
    Future logIN() async{
     await FirebaseAuth.instance.signInWithEmailAndPassword(
       email:emailContr.text.trim() , 
       password: pwdContr.text.trim());
   }
+  
 }

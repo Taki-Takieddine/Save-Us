@@ -1,13 +1,13 @@
 
 import 'package:applicationmemoire/screen/livreur.dart';
 import 'package:applicationmemoire/screen/restaurent.dart';
-import 'package:applicationmemoire/user.dart';
+import 'package:applicationmemoire/services/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import '../resto.dart';
-import '../screen/signaleur.dart';
+import '../services/resto.dart';
+import '../services/user.dart';
 import 'login.dart';
 
 
@@ -23,6 +23,7 @@ class SignUP extends StatelessWidget {
   final adressContr=TextEditingController();
   late final String confirmePWD;
   late final _formKey =GlobalKey<FormState>();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -215,26 +216,34 @@ class SignUP extends StatelessWidget {
             ),
             //button signup 
             GestureDetector(
-      onTap: () {
-        print(emailContr.text);
-        print(pwdContr.text);
-         if(_formKey.currentState!.validate()) {
+      onTap: () async {
+       
+        
+          print(emailContr.text);
+          print(pwdContr.text);
+          if(_formKey.currentState!.validate()) {
            _formKey.currentState!.save();
-        SignUp().then((value) {
-          if(type==1) {
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email:emailContr.text.trim() , 
+            password: pwdContr.text.trim()).then((value) {
+            if(type==1){
             final resto=Resto(id: '', 
             type: type, name: nomContr.text, 
             phoneNumber: int.parse(numtelContr.text), 
             wilaya:  int.parse(wilayaContr.text), 
             nomresto: nomrestoContr.text, 
-            adressresto: adressContr.text,);
+            adressresto: adressContr.text, email: emailContr.text,
+             idUser:value.user!.uid,);
             CreateResto(resto);
           }
           if(type== 2){
+
             final user=Users(id: '', 
             wilaya: int.parse(wilayaContr.text), 
             type: type, name: nomContr.text, 
-            phoneNumber:int.parse(numtelContr.text));
+            phoneNumber:int.parse(numtelContr.text), 
+            email: emailContr.text,
+             idUser:value.user!.uid, );
           CreateUser(user);
           }
 
@@ -309,12 +318,10 @@ class SignUP extends StatelessWidget {
     );
   }
 
-   Future SignUp() async{
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email:emailContr.text.trim() , 
-      password: pwdContr.text.trim());
-      
-  }
+   //Future SignUp() async{
+    //await FirebaseAuth.instance.createUserWithEmailAndPassword(
+     // email:emailContr.text.trim() , 
+      //password: pwdContr.text.trim());}
   // ignore: non_constant_identifier_names
   Future CreateUser(Users user)async{
     final docUser=FirebaseFirestore.instance.collection('Users').doc();
