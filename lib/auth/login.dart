@@ -1,8 +1,5 @@
 import 'package:applicationmemoire/auth/sign_up.dart';
 import 'package:applicationmemoire/screen/livreur.dart';
-import 'package:applicationmemoire/services/get_user_type.dart';
-
-import 'package:applicationmemoire/services/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -242,14 +239,7 @@ class LogIn extends StatelessWidget {
       ),
     );
   }
-  //Stream <List<Users>>readUsers()=>
-  //FirebaseFirestore.instance.collection('Users').snapshots().map((Snapshot)=>
-  //snapshot.docs.map((doc)=>Users.fromMap(doc.data))).toList());
 
-  // Future getTypeUser(String idUser)async{
-  //var snapshot =await FirebaseFirestore.instance.collection('Users').doc(idUser).get();
-
-  // type = snapshot.data;}
   Future getTypeUser(String idUser) async {
     final snapshot = await FirebaseFirestore.instance
         .collection('Users')
