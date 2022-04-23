@@ -97,8 +97,8 @@ class SignUP extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              textfield(
-                                Controller: nomContr,
+                              Textfield(
+                                controller: nomContr,
                                 icon: const Icon(
                                   Icons.arrow_right,
                                   color: Colors.green,
@@ -163,27 +163,27 @@ class SignUP extends StatelessWidget {
                                   height: 15,
                                 ),
                               if (type == 1)
-                                textfield(
+                                Textfield(
                                     lable: 'nom du restaurant',
                                     icon: const Icon(
                                       Icons.arrow_right,
                                       color: Colors.green,
                                     ),
                                     return1: 'nom invalid',
-                                    Controller: nomrestoContr),
+                                    controller: nomrestoContr),
                               if (type == 1)
                                 const SizedBox(
                                   height: 15,
                                 ),
                               if (type == 1)
-                                textfield(
+                                Textfield(
                                     lable: 'adresse du restaurant',
                                     icon: const Icon(
                                       Icons.add_location,
                                       color: Colors.green,
                                     ),
                                     return1: 'adresse non valid',
-                                    Controller: adressContr),
+                                    controller: adressContr),
                               const SizedBox(
                                 height: 15,
                               ),
@@ -273,8 +273,6 @@ class SignUP extends StatelessWidget {
                       //button signup
                       GestureDetector(
                           onTap: () async {
-                            print(emailContr.text);
-                            print(pwdContr.text);
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
                               await FirebaseAuth.instance
@@ -294,7 +292,7 @@ class SignUP extends StatelessWidget {
                                     email: emailContr.text,
                                     idUser: value.user!.uid,
                                   );
-                                  CreateResto(resto);
+                                  createResto(resto);
                                 }
                                 if (type == 2) {
                                   final user = Users(
@@ -306,7 +304,7 @@ class SignUP extends StatelessWidget {
                                     email: emailContr.text,
                                     idUser: value.user!.uid,
                                   );
-                                  CreateUser(user);
+                                  createUser(user);
                                 }
 
                                 if (type == 1) {
@@ -390,35 +388,30 @@ class SignUP extends StatelessWidget {
     );
   }
 
-  //Future SignUp() async{
-  //await FirebaseAuth.instance.createUserWithEmailAndPassword(
-  // email:emailContr.text.trim() ,
-  //password: pwdContr.text.trim());}
-  // ignore: non_constant_identifier_names
-  Future CreateUser(Users user) async {
+  Future createUser(Users user) async {
     final docUser = FirebaseFirestore.instance.collection('Users').doc();
     await docUser.set(user.toMap());
   }
 
-  Future CreateResto(Resto resto) async {
+  Future createResto(Resto resto) async {
     final docUser = FirebaseFirestore.instance.collection('Users').doc();
     await docUser.set(resto.toMapResto());
   }
 }
 
-class textfield extends StatelessWidget {
+class Textfield extends StatelessWidget {
   final String lable;
   final Icon icon;
   final String return1;
-  const textfield({
+  const Textfield({
     Key? key,
     required this.lable,
     required this.icon,
     required this.return1,
-    required this.Controller,
+    required this.controller,
   }) : super(key: key);
 
-  final TextEditingController Controller;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -439,7 +432,7 @@ class textfield extends StatelessWidget {
         return null;
       },
       onSaved: (value) {
-        Controller.text = value!;
+        controller.text = value!;
       },
     );
   }

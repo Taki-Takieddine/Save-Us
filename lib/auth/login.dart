@@ -20,6 +20,7 @@ class LogIn extends StatelessWidget {
     pwdContr.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -161,7 +162,6 @@ class LogIn extends StatelessWidget {
                             logIN().then((value) async {
                               final typeUser =
                                   await getTypeUser(value.user!.uid);
-                              print("type user return " + typeUser.toString());
                               if (typeUser == 1) {
                                 Navigator.push(
                                     context,

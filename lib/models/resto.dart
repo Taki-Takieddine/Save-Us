@@ -43,9 +43,7 @@ class Resto {
       adressresto: adressresto,
     );
   }
-  @override
   Map<String, dynamic> toMapResto() {
-    // TODO: implement toMap
     return {
       'nomresto': nomresto,
       'adressresto': adressresto,
