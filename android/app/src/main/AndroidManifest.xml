@@ -4,6 +4,9 @@
         android:label="Save Us"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        
+        <meta-data android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyDy-LNd8y7pjQPA4KHRc5CT3ITgSib79Ds"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

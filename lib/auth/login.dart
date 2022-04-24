@@ -248,7 +248,7 @@ class LogIn extends StatelessWidget {
     return snapshot.docs[0]['type'];
   }
 
-  Future<UserCredential> logIN() async {
+ Future<UserCredential> logIN() async {
     return await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailContr.text.trim(), password: pwdContr.text.trim());
   }
