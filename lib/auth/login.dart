@@ -69,6 +69,14 @@ class LogIn extends StatelessWidget {
             Expanded(
                 child: Container(
               decoration: const BoxDecoration(
+                   boxShadow: [
+                     BoxShadow(
+                       blurRadius: 8.0,
+                       spreadRadius: 0.5,
+                     color: Colors.blueGrey,
+                     offset: Offset(0.7, 0.7)
+                   )
+                  ],
                   color: Colors.white,
                   borderRadius:
                       BorderRadius.only(topRight: Radius.circular(60))),

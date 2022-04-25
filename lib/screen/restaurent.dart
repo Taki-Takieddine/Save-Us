@@ -138,6 +138,14 @@ class _Restaurent extends State<Restaurent> {
                      width: MediaQuery.of(context).size.width,
                      height: MediaQuery.of(context).size.height,
                     decoration: const BoxDecoration(
+                       boxShadow: [
+                     BoxShadow(
+                       blurRadius: 8.0,
+                       spreadRadius: 0.5,
+                     color: Colors.black,
+                     offset: Offset(0.5, 0.5)
+                   )
+                  ],
                     color: Colors.white,
                     borderRadius:
                         BorderRadius.only(topRight: Radius.circular(60),  
@@ -153,7 +161,7 @@ class _Restaurent extends State<Restaurent> {
                                       margin: const EdgeInsets.all(25),
                                       decoration: BoxDecoration(        
                       
-                      border: Border.all(color: Colors.grey),
+                                       border: Border.all(color: Colors.grey),
                                       ),
                                               child:Container(
                                                 width:MediaQuery.of(context).size.width ,
