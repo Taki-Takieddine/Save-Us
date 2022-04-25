@@ -22,7 +22,7 @@ class Users {
   
   factory Users.fromMap(Map<String, dynamic> data, String documentId) {
     final String id = documentId;
-    final String email = data['idUser'] as String;
+    final String email = data['email'] as String;
     final int type =data['type'] as int;
     final String name = data['name'] as String;
     final int phoneNumber = data['phoneNumber'] as int;
