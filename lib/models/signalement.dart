@@ -11,10 +11,6 @@ class Users {
     required this.positionY,
     required this.wilaya,
   });
-
-  //type 0 admin
-  //type 1 resto
-  //type 2 livreur
   final String id;
   final String idSignal;
   final DateTime date;
