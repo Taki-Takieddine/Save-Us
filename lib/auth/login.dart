@@ -182,7 +182,7 @@ class LogIn extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: ((context) =>
-                                            const Livreur())));
+                                            const Livreur(title: '',))));
                               }
                             });
                           },

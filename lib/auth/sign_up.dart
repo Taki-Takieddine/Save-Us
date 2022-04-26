@@ -331,7 +331,7 @@ class SignUP extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: ((context) =>
-                                            const Livreur())));
+                                            const Livreur(title: '',))));
                               }
                             } //fnct pour enregistrer les données  tt appart password (9ri firestore m tali )
                           },
