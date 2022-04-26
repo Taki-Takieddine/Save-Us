@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -12,15 +10,7 @@ class DetailLivraison extends StatefulWidget {
 }
 
 class _DetailLivraisonState extends State<DetailLivraison> {
- final adressContr=TextEditingController();
-
- final nbsdfContr=TextEditingController();
-
- final descriptionContr=TextEditingController();
-
- late final _formKey = GlobalKey<FormState>();
-
- late final Position currentPosition;
+ 
  var  geoLocator=Geolocator();
  void locatePosition(){
 
@@ -72,12 +62,12 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                         SizedBox(height: 20,),
                         Text("Détail de cette livraison",style:  TextStyle(color: Color.fromARGB(255, 53, 119, 174,),fontWeight: FontWeight.bold,fontSize: 20),),  
                         SizedBox(height: 10,),
-                        
+
                       ]
                   )
                  
            
-                   )))]),
+                )))]),
            )
            ),
           );

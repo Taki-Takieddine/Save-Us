@@ -3,13 +3,15 @@ class Users {
     required this.id,
     required this.dateDepo,
     required this.dateLiv,
-    required this.idSac,
+    required this.idResto,
     required this.statue,
+    required this.idLivreur,
   });
 
   final String id;
-  final String idSac;
+  final String idResto;
   final bool statue;
+  final String idLivreur;
   final DateTime dateDepo;
   final DateTime dateLiv;
   
@@ -18,14 +20,16 @@ class Users {
     final bool statue = data['statue'] as bool;
     final DateTime dateDepo =data['dateDepo'] as DateTime;
     final DateTime dateLiv =data['dateLiv'] as DateTime;
-    final String idSac = data['idSac'] as String;
+    final String idResto = data['idResto'] as String;
+    final String idLivreur = data['idLivreur'] as String;
     
     return Users(
       id: id,
       dateDepo: dateDepo,
       dateLiv: dateLiv, 
       statue: statue, 
-      idSac: idSac,
+      idResto: idResto,
+      idLivreur: idLivreur,
     );
   }
   Map<String, dynamic> toMap() {
@@ -33,9 +37,8 @@ class Users {
       'dateDepo': dateDepo,
       'dateLiv': dateLiv, 
       'statue': statue, 
-      'idSac': idSac,
-      
-
+      'idResto': idResto,
+      'idLivreur': idLivreur,
     };
   }
 }

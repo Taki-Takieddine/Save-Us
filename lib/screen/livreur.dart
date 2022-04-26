@@ -1,5 +1,3 @@
-
-
 import 'package:applicationmemoire/screen/detail_livraison.dart';
 import 'package:flutter/material.dart';
 
