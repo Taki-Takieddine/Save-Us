@@ -46,95 +46,95 @@ class _Restaurent extends State<Restaurent> {
                 )
                 ),
         
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                const SizedBox(
-                  height: 25,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  
-                  children: [
-                    Expanded(
-                      child: Container(
-                        margin: const EdgeInsets.all(15),
-                        height: 150,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(        
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.transparent.withOpacity(0.2),
-                        ),
-                        child:  Center(
-                          child: Column(
-                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                             Text("$nombresac Sacs",style: const TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
-                             
-                       Row(
-                         
-                         mainAxisAlignment: MainAxisAlignment.center,
-                         children: [
-                           Container(
-                              decoration:  BoxDecoration(
-                           color: Colors.white,
-                           borderRadius: BorderRadius.circular(50),),
-                             child: Center(
-                               child:IconButton(
-                             onPressed:() {
-                               setState(() {
-                                 if(nombresac>0){
-                                 nombresac-=1;
-                                 }
-                               });
-                             }, icon: const Icon(Icons.remove_outlined,color: Color.fromARGB(255, 53, 119, 174),),
-                             
-                           ),),
-                           ),
-                           
-                             const SizedBox(
-                            width: 20,
-                    ),
-                       Container(
-                        
-                          decoration:  BoxDecoration(
-                           color: Colors.white,
-                           borderRadius: BorderRadius.circular(50)
-                         ),
-                         child: Center(
-                           child: IconButton(
-                             onPressed:() {
-                               setState(() {
-                                 nombresac+=1;
-                               });
-                             },
-                             icon: const Icon(Icons.add,color: Color.fromARGB(255, 53, 119, 174),),
-                             ),
-                          ),
-                       )    
-                         ],
-                       ),
-                           ], ),
-                      ),
-                    ),
-                    ),
-                     Expanded(
-                      child: Container(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     
-                         margin: const EdgeInsets.all(15),
-                        height: 150,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(        
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.transparent.withOpacity(0.2),
-                        ),
-                        child: const Icon(Icons.star_rounded ,color: Colors.white,size: 50,),
+                    children: [
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.all(15),
+                          height: 150,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(        
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.transparent.withOpacity(0.2),
+                          ),
+                          child:  Center(
+                            child: Column(
+                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                               Text("$nombresac Sacs",style: const TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+                               
+                         Row(
+                           
+                           mainAxisAlignment: MainAxisAlignment.center,
+                           children: [
+                             Container(
+                                decoration:  BoxDecoration(
+                             color: Colors.white,
+                             borderRadius: BorderRadius.circular(50),),
+                               child: Center(
+                                 child:IconButton(
+                               onPressed:() {
+                                 setState(() {
+                                   if(nombresac>0){
+                                   nombresac-=1;
+                                   }
+                                 });
+                               }, icon: const Icon(Icons.remove_outlined,color: Color.fromARGB(255, 53, 119, 174),),
+                               
+                             ),),
+                             ),
+                             
+                               const SizedBox(
+                              width: 20,
                       ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: Container(
+                         Container(
+                          
+                            decoration:  BoxDecoration(
+                             color: Colors.white,
+                             borderRadius: BorderRadius.circular(50)
+                           ),
+                           child: Center(
+                             child: IconButton(
+                               onPressed:() {
+                                 setState(() {
+                                   nombresac+=1;
+                                 });
+                               },
+                               icon: const Icon(Icons.add,color: Color.fromARGB(255, 53, 119, 174),),
+                               ),
+                            ),
+                         )    
+                           ],
+                         ),
+                             ], ),
+                        ),
+                      ),
+                      ),
+                       Expanded(
+                        child: Container(
+                      
+                           margin: const EdgeInsets.all(15),
+                          height: 150,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(        
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.transparent.withOpacity(0.2),
+                          ),
+                          child: const Icon(Icons.star_rounded ,color: Colors.white,size: 50,),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
                      width: MediaQuery.of(context).size.width,
                      height: MediaQuery.of(context).size.height,
                     decoration: const BoxDecoration(
@@ -159,10 +159,7 @@ class _Restaurent extends State<Restaurent> {
                                       
                                       width: MediaQuery.of(context).size.width,
                                       margin: const EdgeInsets.all(25),
-                                      decoration: BoxDecoration(        
-                      
-                                       border: Border.all(color: Colors.grey),
-                                      ),
+
                                               child:Container(
                                                 width:MediaQuery.of(context).size.width ,
                                                 margin: const EdgeInsets.all(20),
@@ -171,9 +168,9 @@ class _Restaurent extends State<Restaurent> {
                       )],
                     ),
                      ),
-                ),
-                        ],
-                       )
+                          ],
+                         ),
+                )
           ),
         ),
       ),
