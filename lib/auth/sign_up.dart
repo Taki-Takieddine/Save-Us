@@ -299,7 +299,8 @@ class SignUP extends StatelessWidget {
                                     nomresto: nomrestoContr.text,
                                     adressresto: adressContr.text,
                                     email: emailContr.text,
-                                    idUser: value.user!.uid,
+                                    idUser: value.user!.uid, 
+                                    nombreDonationTotal: 0, nombreDonation: 0, stars: 1,
                                   );
                                   createResto(resto);
                                 }
@@ -333,7 +334,7 @@ class SignUP extends StatelessWidget {
                                         builder: ((context) =>
                                             const Livreur(title: '',))));
                               }
-                            } //fnct pour enregistrer les données  tt appart password (9ri firestore m tali )
+                            } 
                           },
                           child: Container(
                             height: 50,

@@ -1,5 +1,5 @@
-class Users {
-  Users({
+class Signalement {
+  Signalement({
     required this.id,
     required this.description,
     required this.sdfNumber,
@@ -22,7 +22,7 @@ class Users {
   final int wilaya;
   final String idLivreur;
   
-  factory Users.fromMap(Map<String, dynamic> data, String documentId) {
+  factory Signalement.fromMapSignalement(Map<String, dynamic> data, String documentId) {
     final String id = documentId;
     final String idSignal = data['idSignal'] as String;
     final DateTime date =data['date'] as DateTime;
@@ -33,7 +33,7 @@ class Users {
     final String positionY=data['posituinY']as String;
     final int wilaya = data['wilaya'] as int;
     final String idLivreur = data['idLivreur'] as String;
-    return Users(
+    return Signalement(
       id: id,
       idSignal: idSignal,
       date: date,
@@ -45,7 +45,7 @@ class Users {
       idLivreur: idLivreur,
     );
   }
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMapSignalement() {
     return {
       
       'idSignal' : idSignal,

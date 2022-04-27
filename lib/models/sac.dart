@@ -1,5 +1,5 @@
-class Users {
-  Users({
+class Sac {
+  Sac({
     required this.id,
     required this.dateDepo,
     required this.dateLiv,
@@ -15,7 +15,7 @@ class Users {
   final DateTime dateDepo;
   final DateTime dateLiv;
   
-  factory Users.fromMap(Map<String, dynamic> data, String documentId) {
+  factory Sac.fromMapSac(Map<String, dynamic> data, String documentId) {
     final String id = documentId;
     final bool statue = data['statue'] as bool;
     final DateTime dateDepo =data['dateDepo'] as DateTime;
@@ -23,7 +23,7 @@ class Users {
     final String idResto = data['idResto'] as String;
     final String idLivreur = data['idLivreur'] as String;
     
-    return Users(
+    return Sac(
       id: id,
       dateDepo: dateDepo,
       dateLiv: dateLiv, 
@@ -32,7 +32,7 @@ class Users {
       idLivreur: idLivreur,
     );
   }
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMapSac() {
     return {
       'dateDepo': dateDepo,
       'dateLiv': dateLiv, 

@@ -1,10 +1,12 @@
 
 
-// ignore_for_file: must_be_immutable
 
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-
+import '../models/sac.dart';
 
 
 class Restaurent extends StatefulWidget {
@@ -106,7 +108,16 @@ class _Restaurent extends State<Restaurent> {
                              child: IconButton(
                                onPressed:() {
                                  setState(() {
+                                   
                                    nombresac+=1;
+                                     final sac = Sac(
+                                     id: '', 
+                                     dateDepo: DateTime.now(), 
+                                     dateLiv:  DateTime.now(), 
+                                     idResto:FirebaseAuth.instance.currentUser!.uid, 
+                                     statue: true, 
+                                     idLivreur: '');
+                                    createSac(sac);
                                  });
                                },
                                icon: const Icon(Icons.add,color: Color.fromARGB(255, 53, 119, 174),),
@@ -168,13 +179,17 @@ class _Restaurent extends State<Restaurent> {
                       )],
                     ),
                      ),
-                          ],
-                         ),
+                    ],
+                  ),
                 )
           ),
         ),
       ),
     );
+    
   } 
-  
+  Future createSac(Sac sac) async {
+    final docsac = FirebaseFirestore.instance.collection('sac').doc();
+    await docsac.set(sac.toMapSac());
+  }
 }
