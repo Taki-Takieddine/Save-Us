@@ -19,10 +19,10 @@ class Restaurent extends StatefulWidget {
 
 class _Restaurent extends State<Restaurent> {
  late int nombresac=0;
+  var idResto= FirebaseAuth.instance.currentUser!.uid;
  int index=0;
   final items=List.generate(50, (counter) => 'Item:$counter');
-
- 
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -85,11 +85,14 @@ class _Restaurent extends State<Restaurent> {
                                child: Center(
                                  child:IconButton(
                                onPressed:() {
-                                 setState(() {
+                                 setState(() async {
                                    if(nombresac>0){
                                    nombresac-=1;
-                                   }
-                                 });
+                                   
+                                    }
+                                    }  
+                                                          
+                                 );
                                }, icon: const Icon(Icons.remove_outlined,color: Color.fromARGB(255, 53, 119, 174),),
                                
                              ),),
@@ -108,16 +111,16 @@ class _Restaurent extends State<Restaurent> {
                              child: IconButton(
                                onPressed:() {
                                  setState(() {
-                                   
                                    nombresac+=1;
                                      final sac = Sac(
-                                     id: '', 
+                                  
                                      dateDepo: DateTime.now(), 
                                      dateLiv:  DateTime.now(), 
                                      idResto:FirebaseAuth.instance.currentUser!.uid, 
                                      statue: true, 
-                                     idLivreur: '');
-                                    createSac(sac);
+                                     idLivreur: '', id: '');
+                                     createSac(sac);  
+                                   
                                  });
                                },
                                icon: const Icon(Icons.add,color: Color.fromARGB(255, 53, 119, 174),),
@@ -145,40 +148,87 @@ class _Restaurent extends State<Restaurent> {
                       ),
                     ],
                   ),
-                  Container(
-                     width: MediaQuery.of(context).size.width,
-                     height: MediaQuery.of(context).size.height,
-                    decoration: const BoxDecoration(
-                       boxShadow: [
-                     BoxShadow(
-                       blurRadius: 8.0,
-                       spreadRadius: 0.5,
-                     color: Colors.black,
-                     offset: Offset(0.5, 0.5)
-                   )
-                  ],
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.only(topRight: Radius.circular(60),  
-                     ),
-                  ),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 10,),
-                      const Text("Status des sacs",style: TextStyle(color: Color.fromARGB(255, 53, 119, 174,),fontWeight: FontWeight.bold,fontSize: 30),),  
-                      Container(
-                                      
-                                      width: MediaQuery.of(context).size.width,
-                                      margin: const EdgeInsets.all(25),
-
-                                              child:Container(
-                                                width:MediaQuery.of(context).size.width ,
-                                                margin: const EdgeInsets.all(20),
-                                                height: 350,
-                                                child: const Text('ko n3amrha ki ndir BDD')),
-                      )],
+                  SingleChildScrollView(
+                    child: Container(
+                       width: MediaQuery.of(context).size.width,
+                       height: MediaQuery.of(context).size.height,
+                      decoration: const BoxDecoration(
+                         boxShadow: [
+                       BoxShadow(
+                         blurRadius: 8.0,
+                         spreadRadius: 0.5,
+                       color: Colors.black,
+                       offset: Offset(0.5, 0.5)
+                     )
+                    ],
+                      color: Colors.white,
+                      borderRadius:
+                          BorderRadius.only(topRight: Radius.circular(60),  
+                       ),
                     ),
-                     ),
+                    child:Column(
+                      children: [
+                       
+                       const SizedBox(height: 10,),
+                       const Text("Status des sacs",style: TextStyle(color: Color.fromARGB(255, 53, 119, 174,),fontWeight: FontWeight.bold,fontSize: 30),),  
+                        StreamBuilder<QuerySnapshot>(
+                    stream:FirebaseFirestore.instance.collection('sac')
+                        .where('idResto',isEqualTo:idResto ).snapshots(),
+                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return const Text('Something went wrong');
+                      }
+                    
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      }
+                    
+                      return Expanded(
+                        child: ListView.builder(
+                               
+                                itemCount:snapshot.data?.docs.length,
+                                 itemBuilder: (BuildContext context, int index) {
+                                 return Padding(
+                                   padding:const EdgeInsets.all(20),
+                                   child: Container(
+                                     height: 100,
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent.withOpacity(0.2),
+                                      borderRadius:BorderRadius.circular(30),
+                                    ),
+                                    child:Padding(
+                                      padding: const EdgeInsets.all(12),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children:[
+                                              const  Text('ID du sac :'),
+                                             const SizedBox(width: 5,),
+                                              Text((snapshot.data?.docs[index].id).toString()), 
+                                            ],
+                                          ),
+                                          const SizedBox(height: 5,),
+                                          Row(
+                                            children:  [
+                                           const Text('Statue du sac :'),
+                                            
+                                            const  SizedBox(width: 5,),
+                                            Text((snapshot.data?.docs[index]['statue']).toString()),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                     ),
+                                 );
+                                 }),
+                      );
+                    },
+                    )]
+                      ),
+                       ),
+                  ),
                     ],
                   ),
                 )
@@ -192,4 +242,6 @@ class _Restaurent extends State<Restaurent> {
     final docsac = FirebaseFirestore.instance.collection('sac').doc();
     await docsac.set(sac.toMapSac());
   }
+  
+ 
 }

@@ -8,7 +8,7 @@ class Sac {
     required this.idLivreur,
   });
 
-  final String id;
+  late final String id;
   final String idResto;
   final bool statue;
   final String idLivreur;
@@ -39,6 +39,7 @@ class Sac {
       'statue': statue, 
       'idResto': idResto,
       'idLivreur': idLivreur,
+      
     };
   }
 }
