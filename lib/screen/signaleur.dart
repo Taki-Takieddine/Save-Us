@@ -1,3 +1,6 @@
+import 'package:applicationmemoire/choose_profil.dart';
+import 'package:applicationmemoire/models/signalement.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -225,7 +228,18 @@ class _SignaleurState extends State<Signaleur> {
                                           //bouton
                                            GestureDetector(
                                             onTap: () {
-                                            
+                                              final signal=Signalement(
+                                                date: DateTime.now(), 
+                                                description: descriptionContr.text, 
+                                                etat: true, 
+                                                id: '',
+                                                positionX: '', 
+                                                positionY: '', 
+                                                sdfNumber: int.parse(nbsdfContr.text), 
+                                                wilaya: 31);
+                                              
+                                            createSignal(signal);
+                                            _showMyDialog();
                                             },
                                             child: Container(
                                               height: 50,
@@ -251,4 +265,41 @@ class _SignaleurState extends State<Signaleur> {
        
       )))]))))])));
   }
+  Future createSignal(Signalement sac) async {
+    final docsac = FirebaseFirestore.instance.collection('signalement').doc();
+    await docsac.set(sac.toMapSignalement());
+  }
+  Future<void> _showMyDialog() async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Confirmation du signal'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: const <Widget>[
+              Text('Voulez vous vraiment confirmer se signal ?'),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text(' Non'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: const Text('Oui'),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: ((context) =>
+                                            const ChooseProfil(title: '',))));
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 }
