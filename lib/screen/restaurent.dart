@@ -185,17 +185,26 @@ class _Restaurent extends State<Restaurent> {
                     
                       return Expanded(
                         child: ListView.builder(
-                               
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
                                 itemCount:snapshot.data?.docs.length,
                                  itemBuilder: (BuildContext context, int index) {
                                  return Padding(
-                                   padding:const EdgeInsets.all(20),
+                                   padding:const EdgeInsets.all(12),
                                    child: Container(
-                                     height: 100,
+                                     height: 65,
                                     width: MediaQuery.of(context).size.width,
                                     decoration: BoxDecoration(
-                                      color: Colors.transparent.withOpacity(0.2),
+                                      color: Colors.white.withOpacity(1),
                                       borderRadius:BorderRadius.circular(30),
+                                       boxShadow:const [
+                                        BoxShadow(
+                                          blurRadius: 8.0,
+                                          spreadRadius: 0.5,
+                                        color: Colors.blueGrey,
+                                        offset: Offset(0.8, 0.5)
+                                      )
+                                      ],
                                     ),
                                     child:Padding(
                                       padding: const EdgeInsets.all(12),
@@ -203,18 +212,21 @@ class _Restaurent extends State<Restaurent> {
                                         children: [
                                           Row(
                                             children:[
-                                              const  Text('ID du sac :'),
+                                              const Icon(Icons.circle,color: Color.fromARGB(255, 53, 119, 174,) ,size: 8,),
+                                              const  Text('ID du sac :',style: TextStyle(color: Color.fromARGB(255, 53, 119, 174,),fontWeight: FontWeight.bold,fontSize: 15),),
                                              const SizedBox(width: 5,),
-                                              Text((snapshot.data?.docs[index].id).toString()), 
+                                             
+                                              Text((snapshot.data?.docs[index].id).toString(),style: const TextStyle(color:  Colors.blueGrey,fontWeight: FontWeight.bold,fontSize: 13),), 
                                             ],
                                           ),
                                           const SizedBox(height: 5,),
                                           Row(
                                             children:  [
-                                           const Text('Statue du sac :'),
+                                              const Icon(Icons.circle,color: Color.fromARGB(255, 53, 119, 174,) ,size: 8,),
+                                           const Text('Statue du sac :',style: TextStyle(color: Color.fromARGB(255, 53, 119, 174,),fontWeight: FontWeight.bold,fontSize: 15),),
                                             
                                             const  SizedBox(width: 5,),
-                                            Text((snapshot.data?.docs[index]['statue']).toString()),
+                                            Text((snapshot.data?.docs[index]['statue']).toString(),style: const TextStyle(color:  Colors.blueGrey,fontWeight: FontWeight.bold,fontSize: 13)),
                                             ],
                                           )
                                         ],

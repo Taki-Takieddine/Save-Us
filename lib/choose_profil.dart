@@ -46,7 +46,7 @@ class _ChooseProfilState extends State<ChooseProfil> {
                GestureDetector(
                           onTap: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: ((context) =>  Signaleur())));
+                        context, MaterialPageRoute(builder: ((context) => Signaleur())));
                      },
                   child: Container(
                     margin: const EdgeInsets.all(5.0),
