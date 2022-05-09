@@ -1,6 +1,7 @@
 
 
 
+import 'package:applicationmemoire/screen/navbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,8 +28,9 @@ class _Restaurent extends State<Restaurent> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        drawer:const navBar(),
         appBar: AppBar(
-          title: const Text("Restaurant") ,
+          title: const Center(child: Text("Restaurant")) ,
           backgroundColor: const Color.fromARGB(255, 53, 119, 174),
         ),
     
@@ -41,8 +43,8 @@ class _Restaurent extends State<Restaurent> {
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: <Color>[
-                  Color.fromARGB(255, 53, 119, 174),
+                    colors: <Color>[Color.fromARGB(255, 53, 119, 174),
+                  
                   Color.fromARGB(255, 109, 189, 112)
                 ]
                 )

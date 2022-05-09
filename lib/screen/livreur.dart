@@ -1,8 +1,8 @@
 import 'package:applicationmemoire/screen/detail_livraison.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+import 'navbar.dart';
 
 late final int type;
 class Livreur extends StatefulWidget {
@@ -14,26 +14,20 @@ class Livreur extends StatefulWidget {
   @override
   State<Livreur> createState() => _LivreurState();
 }
-final FirebaseAuth _auth = FirebaseAuth.instance;
+
 
 class _LivreurState extends State<Livreur> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer:  const navBar(),
       appBar: AppBar(
-        title: const Text('Livreur'),
+        title: const Center(child: Text('Livreur')),
         backgroundColor: Colors.purple,
-        automaticallyImplyLeading: false,
-        leading: GestureDetector(
-        onTap: ()  { 
-          
-    
-        },
-        child: const Icon(
-          Icons.menu,color: Colors.white,
-        ),
+        
+        
       ),
-      ),
+      
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
