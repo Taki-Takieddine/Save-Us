@@ -9,9 +9,9 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
 
 class LogIn extends StatefulWidget {
-  late final int type;
+   final int type;
 
-  LogIn({Key? key, required String title, required this.type})
+  const LogIn({Key? key, required String title, required this.type})
       : super(key: key);
 
   @override
@@ -196,7 +196,7 @@ class _LogInState extends State<LogIn> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: ((context) =>
-                                                     Livreur(title: '',))));
+                                                     const Livreur(title: '',))));
                                       }
                                     });
                                     

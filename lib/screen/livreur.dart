@@ -6,7 +6,7 @@ import 'navbar.dart';
 
 late final int type;
 class Livreur extends StatefulWidget {
-   Livreur({Key? key, required this.title}) : super(key: key);
+   const Livreur({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -20,7 +20,7 @@ class _LivreurState extends State<Livreur> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer:  const navBar(),
+      drawer:  const NavBar(),
       appBar: AppBar(
         title: const Center(child: Text('Livreur')),
         backgroundColor: Colors.purple,
@@ -67,7 +67,7 @@ class _LivreurState extends State<Livreur> {
                                  return GestureDetector(
                        onTap: () {
                          Navigator.push(
-                      context, MaterialPageRoute(builder: ((context) =>DetailLivraison())));
+                      context, MaterialPageRoute(builder: ((context) =>const DetailLivraison())));
                         },
                          child: Container(
                            margin: const EdgeInsets.all(10),
@@ -139,7 +139,7 @@ class _LivreurState extends State<Livreur> {
     return GestureDetector(
                        onTap: () {
                          Navigator.push(
-                      context, MaterialPageRoute(builder: ((context) =>DetailLivraison())));
+                      context, MaterialPageRoute(builder: ((context) =>const DetailLivraison())));
                         },
                          child: Container(
                          decoration: BoxDecoration(

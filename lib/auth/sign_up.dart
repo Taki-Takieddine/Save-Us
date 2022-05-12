@@ -10,7 +10,6 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import '../models/resto.dart';
 import '../models/user.dart';
 import 'login.dart';
-import 'login.dart';
 
 class SignUP extends StatelessWidget {
   final int type;
@@ -338,7 +337,7 @@ class SignUP extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: ((context) =>
-                                                  Livreur(title: '',))));
+                                                  const Livreur(title: '',))));
                                     }
                                   } 
                                 },

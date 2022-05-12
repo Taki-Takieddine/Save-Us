@@ -28,7 +28,7 @@ class _Restaurent extends State<Restaurent> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer:const navBar(),
+        drawer:const NavBar(),
         appBar: AppBar(
           title: const Center(child: Text("Restaurant")) ,
           backgroundColor: const Color.fromARGB(255, 53, 119, 174),
