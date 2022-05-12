@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace
+
 import 'package:applicationmemoire/choose_profil.dart';
 import 'package:applicationmemoire/models/signalement.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -37,12 +39,18 @@ class _SignaleurState extends State<Signaleur> {
       print(loc.latitude);
       print(loc.longitude);
       setState(() {
-        _markers.clear();
-        _markers.add(Marker(markerId: const MarkerId('votre position'),
+        print("oizhgoifh $_markers");
+       // _markers.clear();
+        var mark =Marker(markerId: const MarkerId('votre position'),
+            position: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0)
+        );
+        if(!_markers.contains(mark)) {
+          _markers.add(Marker(markerId: const MarkerId('votre position'),
             position: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0)
         ));
-        print('markersss');
-        print(_markers);
+        }
+       
+        print("dlqig eihio fehoh oihe $_markers");
       });
        });
   }
@@ -63,19 +71,21 @@ class _SignaleurState extends State<Signaleur> {
           Stack(
             children:[
               GoogleMap(
-              zoomControlsEnabled: false,
-               mapToolbarEnabled: false,
-              initialCameraPosition:const CameraPosition(
-                target: LatLng(48.8561, 2.2930),
-                zoom: 12.0,
-              ),
+                  zoomControlsEnabled: false,
+                   mapToolbarEnabled: false,
+                  initialCameraPosition:const CameraPosition(
+                    target: LatLng(48.8561, 2.2930),
+                    zoom: 12.0,
+                  ),
+                  
+                  onMapCreated: (GoogleMapController controller){
+                    _controller = controller;
+                  },
+                  markers: _markers,
+                  
+                          ),
+                
               
-              onMapCreated: (GoogleMapController controller){
-                _controller = controller;
-              },
-              markers: _markers,
-              
-            ),
             Positioned(
                      left: 290.0,
                      right:0.0 ,
@@ -109,11 +119,13 @@ class _SignaleurState extends State<Signaleur> {
                                       ),
                                     )),),
             Positioned(
+              
                      left: 0.0,
                      right:0.0 ,
                      bottom: 0.0,
                      top: 300.0,
-                     child:Container(
+                     child:
+                     Container(
                        width: MediaQuery.of(context).size.width,
                        height: MediaQuery.of(context).size.height,
                       decoration: const BoxDecoration(
