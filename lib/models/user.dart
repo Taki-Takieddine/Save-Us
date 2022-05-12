@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 class Users {
   Users({
     required this.id,
@@ -59,5 +62,36 @@ class Users {
     };
   }
 
-  data() {}
+}
+class AuthData{
+  Future getTypeUser(String idUser) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('Users')
+        .where('idUser', isEqualTo: idUser)
+        .get();
+    return snapshot.docs[0]['type'];
+  }
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+   String get getUserId {
+    String _userId = FirebaseAuth.instance.currentUser!.uid;
+    return _userId;
+  }
+
+  Stream<String> get onAuthStateChanged {
+    return _firebaseAuth.authStateChanges().map((user) => user!.uid);
+  }
+
+  get getUserEmail {
+    String? _userEmail = FirebaseAuth.instance.currentUser!.email;
+    return _userEmail;
+  }
+
+  Future<bool> get getUserAdmin async {
+    DocumentSnapshot _userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(getUserId)
+        .get();
+
+    return _userData['status_admin'];
+  }
 }

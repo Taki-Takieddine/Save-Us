@@ -1,10 +1,12 @@
 import 'package:applicationmemoire/auth/sign_up.dart';
 import 'package:applicationmemoire/common_widget/platform_exception_alert_dialog.dart';
+import 'package:applicationmemoire/models/user.dart';
 import 'package:applicationmemoire/screen/livreur.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../screen/restaurent.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
@@ -250,20 +252,16 @@ class _LogInState extends State<LogIn> {
       );
   }
 
-  Future getTypeUser(String idUser) async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('Users')
-        .where('idUser', isEqualTo: idUser)
-        .get();
-    return snapshot.docs[0]['type'];
-  }
+  
 
  Future logIN() async {
        try {
        await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailContr.text.trim(), password: pwdContr.text.trim()).then((value) async {
                                       final typeUser =
-                                          await getTypeUser(value.user!.uid);
+                                          await AuthData().getTypeUser(value.user!.uid);
+                                          final prefs = await SharedPreferences.getInstance();
+                                          prefs.setString('idUser', value.user!.uid);
                                       if (typeUser == 1) {
                                         Navigator.push(
                                             context,
