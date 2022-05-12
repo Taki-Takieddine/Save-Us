@@ -1,6 +1,7 @@
 import 'package:applicationmemoire/auth/sign_up.dart';
 import 'package:applicationmemoire/common_widget/platform_exception_alert_dialog.dart';
 import 'package:applicationmemoire/models/user.dart';
+import 'package:applicationmemoire/screen/admin.dart';
 import 'package:applicationmemoire/screen/livreur.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -262,6 +263,13 @@ class _LogInState extends State<LogIn> {
                                           await AuthData().getTypeUser(value.user!.uid);
                                           final prefs = await SharedPreferences.getInstance();
                                           prefs.setString('idUser', value.user!.uid);
+                                          if (typeUser == 0) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: ((context) =>
+                                                    const Admin(title: ''))));
+                                      }
                                       if (typeUser == 1) {
                                         Navigator.push(
                                             context,
