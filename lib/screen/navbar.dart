@@ -71,7 +71,7 @@ class _NavBarState extends State<NavBar> {
       onTap: (){
         showSpinner(context);
         FirebaseAuth.instance.signOut().then((value) => 
-        Navigator.push(
+        Navigator.pushReplacement(
                       context, MaterialPageRoute(builder: ((context) => const ChooseProfil(title: '',))))
         );
          

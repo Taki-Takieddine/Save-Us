@@ -1,4 +1,5 @@
 import 'package:applicationmemoire/auth/sign_up.dart';
+import 'package:applicationmemoire/common_widget/platform_exception_alert_dialog.dart';
 import 'package:applicationmemoire/screen/livreur.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -181,24 +182,7 @@ class _LogInState extends State<LogIn> {
                               return GestureDetector(
                                   onTap: () {
                                     showSpinner(context);
-                                      logIN().then((value) async {
-                                      final typeUser =
-                                          await getTypeUser(value.user!.uid);
-                                      if (typeUser == 1) {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: ((context) =>
-                                                    const Restaurent(title: 'resto'))));
-                                      }
-                                      if (typeUser == 2) {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: ((context) =>
-                                                     const Livreur(title: '',))));
-                                      }
-                                    });
+                                      logIN();
                                     
                                   },
                                   //button
@@ -274,9 +258,33 @@ class _LogInState extends State<LogIn> {
     return snapshot.docs[0]['type'];
   }
 
- Future<UserCredential> logIN() async {
-    return await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailContr.text.trim(), password: pwdContr.text.trim());
+ Future logIN() async {
+       try {
+       await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailContr.text.trim(), password: pwdContr.text.trim()).then((value) async {
+                                      final typeUser =
+                                          await getTypeUser(value.user!.uid);
+                                      if (typeUser == 1) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: ((context) =>
+                                                    const Restaurent(title: 'resto'))));
+                                      }
+                                      if (typeUser == 2) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: ((context) =>
+                                                     const Livreur(title: '',))));
+                                      }
+                    
+                                    });
+    } on Exception catch (e) {
+      PlatformExceptionAlertDialog(exception: e).show(context);
+    }
+  }
+   
   }
   showSpinner(BuildContext context){
     final progress = ProgressHUD.of(context);
@@ -285,4 +293,4 @@ class _LogInState extends State<LogIn> {
                                    progress?.dismiss();
                                   });
   }
-}
+
