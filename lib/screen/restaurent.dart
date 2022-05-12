@@ -90,8 +90,9 @@ class _Restaurent extends State<Restaurent> {
                                  setState(() async {
                                    if(nombresac>0){
                                    nombresac-=1;
-                                   
+  
                                     }
+                                
                                     }  
                                                           
                                  );
@@ -210,29 +211,39 @@ class _Restaurent extends State<Restaurent> {
                                     ),
                                     child:Padding(
                                       padding: const EdgeInsets.all(12),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children:[
-                                              const Icon(Icons.circle,color: Color.fromARGB(255, 53, 119, 174,) ,size: 8,),
-                                              const  Text('ID du sac :',style: TextStyle(color: Color.fromARGB(255, 53, 119, 174,),fontWeight: FontWeight.bold,fontSize: 15),),
-                                             const SizedBox(width: 5,),
-                                             
-                                              Text((snapshot.data?.docs[index].id).toString(),style: const TextStyle(color:  Colors.blueGrey,fontWeight: FontWeight.bold,fontSize: 13),), 
+                                      child: 
+                                          Column(
+                                            children: [
+                                              Row(
+                                                children:[
+                                                  const Icon(Icons.circle,color: Color.fromARGB(255, 53, 119, 174,) ,size: 8,),
+                                                  const  Text('ID du sac :',style: TextStyle(color: Color.fromARGB(255, 53, 119, 174,),fontWeight: FontWeight.bold,fontSize: 15),),
+                                                 const SizedBox(width: 5,),
+                                                 
+                                                  Text((snapshot.data?.docs[index].id).toString(),style: const TextStyle(color:  Colors.blueGrey,fontWeight: FontWeight.bold,fontSize: 13),), 
+                                                ],
+                                              ),
+                                              const SizedBox(height: 5,),
+                                              GestureDetector(
+                                                onTap: ()async{
+                                                  
+                                                await FirebaseFirestore.instance.collection('sac').doc(snapshot.data?.docs[index].id).delete();
+                                              
+                                                },
+                                                child: Row(
+                                                  children:  [
+                                                    const Icon(Icons.circle,color: Color.fromARGB(255, 53, 119, 174,) ,size: 8,),
+                                                 const Text('Statue du sac :',style: TextStyle(color: Color.fromARGB(255, 53, 119, 174,),fontWeight: FontWeight.bold,fontSize: 15),),
+                                                  
+                                                  const  SizedBox(width: 5,),
+                                                  Text((snapshot.data?.docs[index]['statue']).toString(),style: const TextStyle(color:  Colors.blueGrey,fontWeight: FontWeight.bold,fontSize: 13)),
+                                                  ],
+                                                ),
+                                              ),
+                                            
                                             ],
                                           ),
-                                          const SizedBox(height: 5,),
-                                          Row(
-                                            children:  [
-                                              const Icon(Icons.circle,color: Color.fromARGB(255, 53, 119, 174,) ,size: 8,),
-                                           const Text('Statue du sac :',style: TextStyle(color: Color.fromARGB(255, 53, 119, 174,),fontWeight: FontWeight.bold,fontSize: 15),),
-                                            
-                                            const  SizedBox(width: 5,),
-                                            Text((snapshot.data?.docs[index]['statue']).toString(),style: const TextStyle(color:  Colors.blueGrey,fontWeight: FontWeight.bold,fontSize: 13)),
-                                            ],
-                                          )
-                                        ],
-                                      ),
+                                      
                                     ),
                                      ),
                                  );
