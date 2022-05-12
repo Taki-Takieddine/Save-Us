@@ -27,8 +27,8 @@ class _SignaleurState extends State<Signaleur> {
   GoogleMapController? _controller;
   Location currentLocation = Location();
   final Set<Marker> _markers={};
- 
- 
+ late String locLatitude;
+ late String locLongitude;
   void getLocation()async{
     currentLocation.onLocationChanged.listen((LocationData loc){
  
@@ -38,6 +38,8 @@ class _SignaleurState extends State<Signaleur> {
       )));
       print(loc.latitude);
       print(loc.longitude);
+      locLatitude = loc.latitude.toString();
+      locLongitude = loc.longitude.toString();
       setState(() {
         print("oizhgoifh $_markers");
        // _markers.clear();
@@ -247,8 +249,8 @@ class _SignaleurState extends State<Signaleur> {
                                                 description: descriptionContr.text, 
                                                 etat: true, 
                                                 id: '',
-                                                positionX: '', 
-                                                positionY: '', 
+                                                positionX: locLatitude, 
+                                                positionY: locLongitude, 
                                                 sdfNumber: int.parse(nbsdfContr.text), 
                                                 wilaya: 31);
                                               

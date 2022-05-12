@@ -6,7 +6,9 @@ class Signalement {
    // required this.idResto,
     required this.date,
     required this.etat,
+    // positionX mean latitude
     required this.positionX,
+    // positionY mean longitude
     required this.positionY,
     //required this.idLivreur,
     required this.wilaya,
