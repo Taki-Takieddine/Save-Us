@@ -263,21 +263,21 @@ class _LogInState extends State<LogIn> {
                                           final prefs = await SharedPreferences.getInstance();
                                           prefs.setString('idUser', value.user!.uid);
                                           if (typeUser == 0) {
-                                        Navigator.push(
+                                        Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
                                                 builder: ((context) =>
                                                     const Admin(title: ''))));
                                       }
                                       if (typeUser == 1) {
-                                        Navigator.push(
+                                        Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
                                                 builder: ((context) =>
                                                     const Restaurent(title: 'resto'))));
                                       }
                                       if (typeUser == 2) {
-                                        Navigator.push(
+                                        Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
                                                 builder: ((context) =>

@@ -65,34 +65,38 @@ class _SignaleurState extends State<Signaleur> {
     return SafeArea(
       
       child: Scaffold(
-        
+        backgroundColor: Colors.blue,
         appBar: AppBar(
           title:const  Text("Signalement"),
         ),
-        body: 
-          Stack(
-            children:[
-              GoogleMap(
-                  zoomControlsEnabled: false,
-                   mapToolbarEnabled: false,
-                  initialCameraPosition:const CameraPosition(
-                    target: LatLng(48.8561, 2.2930),
-                    zoom: 12.0,
-                  ),
-                  
-                  onMapCreated: (GoogleMapController controller){
-                    _controller = controller;
-                  },
-                  markers: _markers,
-                  
-                          ),
-                
-              
-            Positioned(
-                     left: 290.0,
+        body:Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+             Container(
+               width:MediaQuery.of(context).size.width, 
+               height: ((MediaQuery.of(context).size.height)/2)-100,
+               child: 
+                Stack(
+                 children:[
+                   GoogleMap(
+                      zoomControlsEnabled: false,
+                       mapToolbarEnabled: false,
+                      initialCameraPosition:const CameraPosition(
+                        target: LatLng(48.8561, 2.2930),
+                        zoom: 12.0,
+                      ),
+                      
+                      onMapCreated: (GoogleMapController controller){
+                        _controller = controller;
+                      },
+                      markers: _markers,
+                     ),
+                    Positioned(
+                     left: MediaQuery.of(context).size.width-100,
                      right:0.0 ,
-                     bottom:645.0,
-                     top: 15.0,
+                     bottom:10,
+                     top:220 ,
                      child:GestureDetector(
                                       onTap: () {
        
@@ -120,21 +124,17 @@ class _SignaleurState extends State<Signaleur> {
                                         ),
                                       ),
                                     )),),
-            Positioned(
-              
-                     left: 0.0,
-                     right:0.0 ,
-                     bottom: 0.0,
-                     top: 300.0,
-                     child:
-                     Container(
+                 ], 
+               ),
+                   
+             ),
+               
+                         Container(
                        width: MediaQuery.of(context).size.width,
-                       height: MediaQuery.of(context).size.height,
+                       height: ((MediaQuery.of(context).size.height)/2)+14.9,
                       decoration: const BoxDecoration(
                       color: Colors.white,
-                      borderRadius:
-                          BorderRadius.only(topRight: Radius.circular(60),  
-                       ),
+                      
                       boxShadow: [
                          BoxShadow(
                            blurRadius: 16.0,
@@ -148,7 +148,7 @@ class _SignaleurState extends State<Signaleur> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children:  [
-                          const SizedBox(height: 20,),
+                          const SizedBox(height: 10,),
                           const Text("Aidez-nous a signaler les SDF",style:  TextStyle(color: Color.fromARGB(255, 53, 119, 174,),fontWeight: FontWeight.bold,fontSize: 20),),  
                           const SizedBox(height: 10,),
                            Padding(
@@ -213,7 +213,7 @@ class _SignaleurState extends State<Signaleur> {
                                           ),
                                          const SizedBox(height: 10,),
                                           TextFormField(
-                                            minLines: 3, // any number you need (It works as the rows for the textarea)
+                                            minLines: 1, // any number you need (It works as the rows for the textarea)
                                             keyboardType: TextInputType.multiline,
                                             maxLines: 15,
                                             controller: descriptionContr,
@@ -240,7 +240,7 @@ class _SignaleurState extends State<Signaleur> {
                                             },
                                           ),
                                         
-                                          const SizedBox(height: 20,),
+                                          const SizedBox(height: 30,),
                                           //bouton
                                            GestureDetector(
                                             onTap: () {
@@ -279,7 +279,17 @@ class _SignaleurState extends State<Signaleur> {
           ) ,
         ),
        
-      )))]))))])));
+      )
+      )
+      )
+      ]
+      )
+      )
+      )
+     ] )
+          ,
+        )
+          );
   }
   Future createSignal(Signalement sac) async {
     final docsac = FirebaseFirestore.instance.collection('signalement').doc();
