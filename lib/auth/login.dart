@@ -3,7 +3,6 @@ import 'package:applicationmemoire/common_widget/platform_exception_alert_dialog
 import 'package:applicationmemoire/models/user.dart';
 import 'package:applicationmemoire/screen/admin.dart';
 import 'package:applicationmemoire/screen/livreur.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

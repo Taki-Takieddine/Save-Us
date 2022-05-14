@@ -22,8 +22,11 @@ class _Restaurent extends State<Restaurent> {
  late int nombresac=0;
   var idResto= FirebaseAuth.instance.currentUser!.uid;
  int index=0;
+ int nbSac=0;
+
+                    
   final items=List.generate(50, (counter) => 'Item:$counter');
-  
+ 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -74,63 +77,35 @@ class _Restaurent extends State<Restaurent> {
                             child: Column(
                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                               Text("$nombresac Sacs",style: const TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+                               Text("$nbSac Sacs",style: const TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
                                
-                         Row(
-                           
-                           mainAxisAlignment: MainAxisAlignment.center,
-                           children: [
-                             Container(
-                                decoration:  BoxDecoration(
-                             color: Colors.white,
-                             borderRadius: BorderRadius.circular(50),),
-                               child: Center(
-                                 child:IconButton(
-                               onPressed:() {
-                                 setState(() async {
-                                   if(nombresac>0){
-                                   nombresac-=1;
-  
-                                    }
-                                
-                                    }  
-                                                          
-                                 );
-                               }, icon: const Icon(Icons.remove_outlined,color: Color.fromARGB(255, 53, 119, 174),),
-                               
-                             ),),
-                             ),
-                             
-                               const SizedBox(
+                         const SizedBox(
                               width: 20,
                       ),
                          Container(
-                          
+                            width: 80,
                             decoration:  BoxDecoration(
                              color: Colors.white,
                              borderRadius: BorderRadius.circular(50)
                            ),
                            child: Center(
                              child: IconButton(
-                               onPressed:() {
-                                 setState(() {
-                                   nombresac+=1;
-                                     final sac = Sac(
-                                  
-                                     dateDepo: DateTime.now(), 
-                                     dateLiv:  DateTime.now(), 
-                                     idResto:FirebaseAuth.instance.currentUser!.uid, 
-                                     statue: true, 
-                                     idLivreur: '', id: '');
-                                     createSac(sac);  
-                                   
-                                 });
-                               },
-                               icon: const Icon(Icons.add,color: Color.fromARGB(255, 53, 119, 174),),
-                               ),
+                         onPressed:() {
+                           setState(() {
+                             nombresac+=1;
+                               final sac = Sac(
+                               dateDepo: DateTime.now(), 
+                               dateLiv:  DateTime.now(), 
+                               idResto:FirebaseAuth.instance.currentUser!.uid, 
+                               statue: true, 
+                               idLivreur: '', id: '');
+                               createSac(sac);  
+                             
+                           });
+                         },
+                         icon: const Icon(Icons.add,color: Color.fromARGB(255, 53, 119, 174),),
+                         ),
                             ),
-                         )    
-                           ],
                          ),
                              ], ),
                         ),
@@ -176,7 +151,7 @@ class _Restaurent extends State<Restaurent> {
                        const Text("Status des sacs",style: TextStyle(color: Color.fromARGB(255, 53, 119, 174,),fontWeight: FontWeight.bold,fontSize: 30),),  
                         StreamBuilder<QuerySnapshot>(
                     stream:FirebaseFirestore.instance.collection('sac')
-                        .where('idResto',isEqualTo:idResto ).snapshots(),
+                        .where('idResto',isEqualTo:idResto).snapshots(),
                     builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (snapshot.hasError) {
                         return const Text('Something went wrong');
@@ -215,6 +190,10 @@ class _Restaurent extends State<Restaurent> {
                                           Column(
                                             children: [
                                               Row(
+                                                children: [
+                                                  Column(
+                                                    children: [
+                                                      Row(
                                                 children:[
                                                   const Icon(Icons.circle,color: Color.fromARGB(255, 53, 119, 174,) ,size: 8,),
                                                   const  Text('ID du sac :',style: TextStyle(color: Color.fromARGB(255, 53, 119, 174,),fontWeight: FontWeight.bold,fontSize: 15),),
@@ -224,22 +203,62 @@ class _Restaurent extends State<Restaurent> {
                                                 ],
                                               ),
                                               const SizedBox(height: 5,),
-                                              GestureDetector(
-                                                onTap: ()async{
-                                                  
-                                                await FirebaseFirestore.instance.collection('sac').doc(snapshot.data?.docs[index].id).delete();
-                                              
-                                                },
-                                                child: Row(
-                                                  children:  [
-                                                    const Icon(Icons.circle,color: Color.fromARGB(255, 53, 119, 174,) ,size: 8,),
-                                                 const Text('Statue du sac :',style: TextStyle(color: Color.fromARGB(255, 53, 119, 174,),fontWeight: FontWeight.bold,fontSize: 15),),
-                                                  
-                                                  const  SizedBox(width: 5,),
-                                                  Text((snapshot.data?.docs[index]['statue']).toString(),style: const TextStyle(color:  Colors.blueGrey,fontWeight: FontWeight.bold,fontSize: 13)),
-                                                  ],
-                                                ),
+                                              Row(
+                                                children:  [
+                                                  const Icon(Icons.circle,color: Color.fromARGB(255, 53, 119, 174,) ,size: 8,),
+                                               const Text('Statue du sac :',style: TextStyle(color: Color.fromARGB(255, 53, 119, 174,),fontWeight: FontWeight.bold,fontSize: 15),),
+                                                
+                                                const  SizedBox(width: 5,),
+                                                Text((snapshot.data?.docs[index]['statue']).toString(),style: const TextStyle(color:  Colors.blueGrey,fontWeight: FontWeight.bold,fontSize: 13)),
+                                                ],
                                               ),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(width: 60,),
+                                                 GestureDetector(
+                                                onTap: ()async{
+                                                  if(snapshot.data?.docs[index]['statue']==true){
+                                                  await FirebaseFirestore.instance.collection('sac').doc(snapshot.data?.docs[index].id).delete();
+                                              
+                                                  }
+                                                  else{
+                                                   showDialog<void>(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return  AlertDialog(
+                                                      title: const Text('Erreur'),
+                                                      content: SingleChildScrollView(
+                                                        child: ListBody(
+                                                          children: const <Widget>[
+                                                            Text('veuillez sélectionner un sac disponible !'),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      actions: <Widget>[
+                                                        TextButton(
+                                                          child: const Text(' ok'),
+                                                          onPressed: () {
+                                                            Navigator.push(context, MaterialPageRoute(builder: ((context) =>
+                                                            const Restaurent(title: ''))));
+                                                          },
+                                                        ),
+                                                      
+                                                      ],
+                                                    );
+          
+      
+      
+    },
+  );
+                                                  }
+                                               
+                                                },
+                                                child:const Icon(Icons.delete,color: Color.fromARGB(255, 53, 119, 174,)) ,) 
+                                                ],
+                                                
+                                              )
+
                                             
                                             ],
                                           ),
@@ -268,5 +287,13 @@ class _Restaurent extends State<Restaurent> {
     await docsac.set(sac.toMapSac());
   }
   
- 
+  Future getNombreSac(String idUser) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('Users')
+        .where('idUser', isEqualTo: idUser)
+        .get();
+    return snapshot.docs[0]['nombreDonation'];
+  }
 }
+
+ 
