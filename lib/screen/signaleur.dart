@@ -26,7 +26,7 @@ class _SignaleurState extends State<Signaleur> {
  late final _formKey = GlobalKey<FormState>();
   GoogleMapController? _controller;
   Location currentLocation = Location();
-  final Set<Marker> _markers={};
+ final Set<Marker> _markers={};
  late String locLatitude;
  late String locLongitude;
   void getLocation()async{
@@ -65,7 +65,7 @@ class _SignaleurState extends State<Signaleur> {
     return SafeArea(
       
       child: Scaffold(
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 53, 119, 174),
         appBar: AppBar(
           title:const  Text("Signalement"),
         ),
