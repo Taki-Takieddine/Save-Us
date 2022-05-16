@@ -6,6 +6,7 @@ class Sac {
     required this.idResto,
     required this.statue,
     required this.idLivreur,
+    required this.adresseResto,
   });
 
   late final String id;
@@ -14,6 +15,7 @@ class Sac {
   final String idLivreur;
   final DateTime dateDepo;
   final DateTime dateLiv;
+  final String adresseResto;
   
   factory Sac.fromMapSac(Map<String, dynamic> data, String documentId) {
     final String id = documentId;
@@ -22,6 +24,7 @@ class Sac {
     final DateTime dateLiv =data['dateLiv'] as DateTime;
     final String idResto = data['idResto'] as String;
     final String idLivreur = data['idLivreur'] as String;
+    final String adresseResto = data['adresseResto'] as String;
     
     return Sac(
       id: id,
@@ -30,6 +33,7 @@ class Sac {
       statue: statue, 
       idResto: idResto,
       idLivreur: idLivreur,
+       adresseResto: 'adresseResto',
     );
   }
   Map<String, dynamic> toMapSac() {
@@ -39,6 +43,7 @@ class Sac {
       'statue': statue, 
       'idResto': idResto,
       'idLivreur': idLivreur,
+      'adresseResto':adresseResto,
       
     };
   }

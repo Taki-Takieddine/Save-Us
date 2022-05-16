@@ -13,20 +13,31 @@ import '../models/sac.dart';
 class Restaurent extends StatefulWidget {
    const Restaurent({Key? key, required this.title}) : super(key: key);
   final String title;
-  
   @override
   _Restaurent createState() => _Restaurent();
 }
 
 class _Restaurent extends State<Restaurent> {
- late int nombresac=0;
-  var idResto= FirebaseAuth.instance.currentUser!.uid;
- int index=0;
- int nbSac=0;
 
+  var idResto= FirebaseAuth.instance.currentUser!.uid;
+  var userInfo=FirebaseFirestore.instance
+        .collection('Users');
+ int index=0;
+var nbsac= 0;
                     
   final items=List.generate(50, (counter) => 'Item:$counter');
- 
+ @override
+  void initState(){
+   getUserInfo();
+   super.initState();
+ }
+ getUserInfo(){
+   userInfo.doc(FirebaseAuth.instance.currentUser!.uid).get().then(( doc) {
+     print('helooooooooooooooooooooooooooooooooooooooooooooooo');
+     print(doc.data);
+     
+   });
+    }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -77,7 +88,7 @@ class _Restaurent extends State<Restaurent> {
                             child: Column(
                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                               Text("$nbSac Sacs",style: const TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+                               Text("$nbsac Sacs",style: const TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
                                
                          const SizedBox(
                               width: 20,
@@ -90,18 +101,21 @@ class _Restaurent extends State<Restaurent> {
                            ),
                            child: Center(
                              child: IconButton(
-                         onPressed:() {
-                           setState(() {
-                             nombresac+=1;
+                         onPressed:()async {
+                               final snapshot = await FirebaseFirestore.instance
+                              .collection('Users').where( 'idUser' ,isEqualTo: idResto)
+                              .get();
+                               final
+                               adresse=snapshot.docs[0]['adressresto'];
                                final sac = Sac(
                                dateDepo: DateTime.now(), 
                                dateLiv:  DateTime.now(), 
                                idResto:FirebaseAuth.instance.currentUser!.uid, 
                                statue: true, 
-                               idLivreur: '', id: '');
+                               idLivreur: '', id: '', adresseResto:adresse);
                                createSac(sac);  
                              
-                           });
+                    
                          },
                          icon: const Icon(Icons.add,color: Color.fromARGB(255, 53, 119, 174),),
                          ),
@@ -223,11 +237,11 @@ class _Restaurent extends State<Restaurent> {
                                                   }
                                                   else{
                                                    showDialog<void>(
-    context: context,
-    barrierDismissible: false, // user must tap button!
-    builder: (BuildContext context) {
-      return  AlertDialog(
-                                                      title: const Text('Erreur'),
+                                                  context: context,
+                                                  barrierDismissible: false, // user must tap button!
+                                                  builder: (BuildContext context) {
+                                                    return  AlertDialog(
+                                                    title: const Text('Erreur'),
                                                       content: SingleChildScrollView(
                                                         child: ListBody(
                                                           children: const <Widget>[
@@ -287,12 +301,18 @@ class _Restaurent extends State<Restaurent> {
     await docsac.set(sac.toMapSac());
   }
   
-  Future getNombreSac(String idUser) async {
+
+Future getTypeUser(String idUser) async {
     final snapshot = await FirebaseFirestore.instance
-        .collection('Users')
-        .where('idUser', isEqualTo: idUser)
+        .collection('Users').where( idUser)
         .get();
-    return snapshot.docs[0]['nombreDonation'];
+    return snapshot.docs[0]['type'];
+  }
+  Future getAdresseUser(String idUser) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('Users').where( 'idUser' ,isEqualTo: idResto)
+        .get();
+    return snapshot.docs[0]['adressresto'];
   }
 }
 
