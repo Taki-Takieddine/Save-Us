@@ -58,7 +58,10 @@ class _SignaleurState extends State<Signaleur> {
   }
  
   @override
-  
+  void initState() {
+    getLocation();
+    super.initState();
+  }
  
   @override
   Widget build(BuildContext context) {
@@ -214,7 +217,7 @@ class _SignaleurState extends State<Signaleur> {
                                             ),
                                            const SizedBox(height: 10,),
                                             TextFormField(
-                                              minLines: 1, // any number you need (It works as the rows for the textarea)
+                                              minLines: 3, // any number you need (It works as the rows for the textarea)
                                               keyboardType: TextInputType.multiline,
                                               maxLines: 15,
                                               controller: descriptionContr,
