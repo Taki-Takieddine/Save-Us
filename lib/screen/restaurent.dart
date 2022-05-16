@@ -1,6 +1,8 @@
 
 
 
+import 'package:applicationmemoire/models/resto.dart';
+import 'package:applicationmemoire/models/user.dart';
 import 'package:applicationmemoire/screen/navbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -19,25 +21,24 @@ class Restaurent extends StatefulWidget {
 
 class _Restaurent extends State<Restaurent> {
 
-  var idResto= FirebaseAuth.instance.currentUser!.uid;
+  String idResto= FirebaseAuth.instance.currentUser!.uid;
   var userInfo=FirebaseFirestore.instance
-        .collection('Users');
+        .collection('Users').where('idUser',isEqualTo:FirebaseAuth.instance.currentUser!.uid);
  int index=0;
-var nbsac= 0;
-                    
+var nbsac=0;
+getNombreDonation()async{
+  final snapshot=await userInfo.get();
+ nbsac=snapshot.docs[0]['nombreDonation'];
+}
+@override
+  void initState() {
+    // TODO: implement initState
+    getNombreDonation();
+    super.initState();
+  }
   final items=List.generate(50, (counter) => 'Item:$counter');
  @override
-  void initState(){
-   getUserInfo();
-   super.initState();
- }
- getUserInfo(){
-   userInfo.doc(FirebaseAuth.instance.currentUser!.uid).get().then(( doc) {
-     print('helooooooooooooooooooooooooooooooooooooooooooooooo');
-     print(doc.data);
-     
-   });
-    }
+ 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -114,7 +115,25 @@ var nbsac= 0;
                                statue: true, 
                                idLivreur: '', id: '', adresseResto:adresse);
                                createSac(sac);  
-                             
+                              
+                               final user=Resto(id: ''
+                               , email: snapshot.docs[0]['email']
+                               , type: snapshot.docs[0]['type'],
+                                idUser: snapshot.docs[0]['idUser'],
+                                 name: snapshot.docs[0]['name'], 
+                                 phoneNumber:snapshot.docs[0]['phoneNumber'],
+                                 wilaya: snapshot.docs[0]['wilaya'], adressresto: '', 
+                                 nombreDonation:snapshot.docs[0]['nombreDonation'] +1,
+                                  nombreDonationTotal:snapshot.docs[0]['nombreDonation'] +1,
+                                  nomresto:snapshot.docs[0]['nomresto'],
+                                   stars: snapshot.docs[0]['stars']);
+                                   await FirebaseFirestore.instance
+                              .collection('Users').doc(snapshot.docs[0].id)
+                              .set(user.toMapResto());
+                                setState(() {
+                                  getNombreDonation();
+                                }); 
+                              
                     
                          },
                          icon: const Icon(Icons.add,color: Color.fromARGB(255, 53, 119, 174),),
@@ -232,8 +251,27 @@ var nbsac= 0;
                                                  GestureDetector(
                                                 onTap: ()async{
                                                   if(snapshot.data?.docs[index]['statue']==true){
-                                                  await FirebaseFirestore.instance.collection('sac').doc(snapshot.data?.docs[index].id).delete();
-                                              
+                                                 await FirebaseFirestore.instance.collection('sac').doc(snapshot.data?.docs[index].id).delete();
+                                                 final snapshots = await FirebaseFirestore.instance
+                              .collection('Users').where( 'idUser' ,isEqualTo: idResto)
+                              .get();
+                                                            final user=Resto(id: ''
+                                          , email: snapshots.docs[0]['email']
+                                          , type: snapshots.docs[0]['type'],
+                                            idUser: snapshots.docs[0]['idUser'],
+                                            name: snapshots.docs[0]['name'], 
+                                            phoneNumber:snapshots.docs[0]['phoneNumber'],
+                                            wilaya: snapshots.docs[0]['wilaya'], adressresto: '', 
+                                            nombreDonation:snapshots.docs[0]['nombreDonation'] -1,
+                                              nombreDonationTotal:snapshots.docs[0]['nombreDonation'] -1,
+                                              nomresto:snapshots.docs[0]['nomresto'],
+                                              stars: snapshots.docs[0]['stars']);
+                                              await FirebaseFirestore.instance
+                                          .collection('Users').doc(snapshots.docs[0].id)
+                                          .set(user.toMapResto());
+                                                 setState(() {
+                                                   getNombreDonation();
+                                                 });
                                                   }
                                                   else{
                                                    showDialog<void>(
@@ -255,6 +293,7 @@ var nbsac= 0;
                                                           onPressed: () {
                                                             Navigator.push(context, MaterialPageRoute(builder: ((context) =>
                                                             const Restaurent(title: ''))));
+
                                                           },
                                                         ),
                                                       
