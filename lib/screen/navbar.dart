@@ -92,7 +92,7 @@ class _NavBarState extends State<NavBar> {
        const CircleAvatar(
          backgroundColor: Colors.transparent,
          radius: 70,
-          child: Icon(Icons.person,size: 120,color: Colors.white,),
+          child: Icon(Icons.account_circle,size: 120,color: Colors.white,),
        ),
        const SizedBox(height: 15,),
        Text((FirebaseAuth.instance.currentUser!.email).toString(),style: const TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold),),

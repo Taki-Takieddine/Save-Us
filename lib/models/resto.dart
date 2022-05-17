@@ -43,11 +43,12 @@ class Resto extends Users {
     final String email = data['email'] as String;
     final int phoneNumber = data['phoneNumber'] as int;
     final int wilaya = data['wilaya'] as int;
+    final String adressresto = data['adressresto']as String;
     final int nombreDonationTotal = data['nombreDonationTotal'] as int;
     final int nombreDonation = data['nombreDonation'] as int;
     final String nomresto = data['nomresto'] as String;
     final String idUser = data['idUser'] as String;
-    final String adressresto = data['adressresto'] as String;
+    
     return Resto(
       id: id,
       stars: stars,

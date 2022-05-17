@@ -56,6 +56,7 @@ class _BaseScreenState extends State<BaseScreen> {
           'wilaya': snapshot.docs[0]['wilaya'],
           'stars': snapshot.docs[0]['stars'],
           'nomresto': snapshot.docs[0]['nomresto'],
+          'adressresto': snapshot.docs[0]['adressresto'],
           'nombreDonationTotal': snapshot.docs[0]['nombreDonationTotal'],
           'nombreDonation': snapshot.docs[0]['nombreDonation'],
         }, snapshot.docs[0].id);
