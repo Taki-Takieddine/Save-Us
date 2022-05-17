@@ -2,7 +2,6 @@
 
 
 import 'package:applicationmemoire/models/resto.dart';
-import 'package:applicationmemoire/models/user.dart';
 import 'package:applicationmemoire/screen/navbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -32,7 +31,6 @@ getNombreDonation()async{
 }
 @override
   void initState() {
-    // TODO: implement initState
     getNombreDonation();
     super.initState();
   }
@@ -238,10 +236,12 @@ getNombreDonation()async{
                                               const SizedBox(height: 5,),
                                               Row(
                                                 children:  [
-                                                  const Icon(Icons.circle,color: Color.fromARGB(255, 53, 119, 174,) ,size: 8,),
+                                                  if(snapshot.data?.docs[index]['statue']==true)
+                                                  const Icon(Icons.circle,color: Colors.green ,size: 10,),
+                                                   if(snapshot.data?.docs[index]['statue']==false) const Icon(Icons.circle,color: Colors.orange ,size: 10,),const  SizedBox(width: 10,),
                                                const Text('Statue du sac :',style: TextStyle(color: Color.fromARGB(255, 53, 119, 174,),fontWeight: FontWeight.bold,fontSize: 15),),
                                                 
-                                                const  SizedBox(width: 5,),
+                                                
                                                 Text((snapshot.data?.docs[index]['statue']).toString(),style: const TextStyle(color:  Colors.blueGrey,fontWeight: FontWeight.bold,fontSize: 13)),
                                                 ],
                                               ),
