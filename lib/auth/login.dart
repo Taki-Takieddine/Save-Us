@@ -57,8 +57,8 @@ class _LogInState extends State<LogIn> {
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: Column(
-                    children: const <Widget>[
-                      Center(
+                    children: <Widget>[
+                      const Center(
                         child: Text(
                           "Log In",
                           style: TextStyle(
@@ -67,13 +67,30 @@ class _LogInState extends State<LogIn> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 40,
                       ),
                       Center(
-                        child: Text(
-                          "un petit slogant dok nkhmem fih ",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        child: Column(
+                          children:const[
+                            
+                             Text(
+                            "Nous sommes tous ensemble",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                           Text(
+                            "responsables, responsables de nous-",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                          Text(
+                            "mêmes et responsables les uns des autres,",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                          Text(
+                            "c'est cela la grandeur d'être homme.",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                          ],
                         ),
                       )
                     ],
@@ -170,15 +187,10 @@ class _LogInState extends State<LogIn> {
                             ),
                           ),
                           const SizedBox(
-                            height: 40,
+                            height: 80,
                           ),
-                          const Text(
-                            "mot de passe oublié ?",
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                          const SizedBox(
-                            height: 40,
-                          ),
+                        
+                         
                           Builder(
                             builder: (context) {
                               return GestureDetector(

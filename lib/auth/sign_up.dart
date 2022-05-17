@@ -52,8 +52,8 @@ class SignUP extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
-                  children: const <Widget>[
-                    Center(
+                  children: <Widget>[
+                    const Center(
                       child: Text(
                         "Sign Up",
                         style: TextStyle(
@@ -62,15 +62,25 @@ class SignUP extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     Center(
-                      child: Text(
-                        "un petit slogant dok nkhmem fih tani ",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
-                    )
+                        child: Column(
+                          children:const[
+                            
+                             Text(
+                            "Il faut vivre les uns pour les autres et non",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                           
+                          Text(
+                            "pas les uns contre les autres.",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                          ],
+                        ),
+                      )
                   ],
                 ),
               ),
