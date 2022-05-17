@@ -1,13 +1,15 @@
 import 'package:applicationmemoire/common_widget/platform_alert_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 
 class PlatformExceptionAlertDialog extends PlatformAlertDialog {
   PlatformExceptionAlertDialog({
+    Key? key,
     String title = 'Error',
     required Exception exception,
   }) : super(
+          key: key,
           title: title,
           content: _message(exception),
           defaultActionText: 'OK',

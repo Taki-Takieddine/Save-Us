@@ -47,6 +47,7 @@ class Admins extends Users {
     return User.fromMap(data, documentId);
   }
   */
+  @override
   Map<String, dynamic> toMap() {
     return {
       'email': email,

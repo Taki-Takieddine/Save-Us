@@ -1,7 +1,4 @@
 import 'package:applicationmemoire/base_screen.dart';
-import 'package:applicationmemoire/models/user.dart';
-import 'package:applicationmemoire/screen/livreur.dart';
-import 'package:applicationmemoire/screen/restaurent.dart';
 import 'package:applicationmemoire/services/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +32,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        //     home: const ChooseProfil(title: 'Flutter Demo Home Page'),
         home: StreamBuilder<AuthUser?>(
           stream: FirebaseAuthService().onAuthStateChanged,
           builder: (context, snapshot) {
@@ -48,17 +44,6 @@ class MyApp extends StatelessWidget {
                   value: user,
                   child: const BaseScreen(),
                 );
-                //   final typeUser = dh(prefs.getString('idUser')!);
-                //   //      final typeUser = 'iYSEDSiozwhyp5JP1Z2J7DiOhHs2';
-                //   if (typeUser == 1) {
-                //     return const Restaurent(title: 'resto');
-                //   }
-                //   if (typeUser == 2) {
-                //     return const Livreur(
-                //       title: '',
-                //     );
-                //   }
-                // }
               }
             }
             if (snapshot.hasError) {

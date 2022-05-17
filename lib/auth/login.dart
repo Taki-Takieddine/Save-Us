@@ -1,6 +1,5 @@
 import 'package:applicationmemoire/auth/sign_up.dart';
 import 'package:applicationmemoire/common_widget/platform_exception_alert_dialog.dart';
-import 'package:applicationmemoire/models/user.dart';
 import 'package:applicationmemoire/screen/admin.dart';
 import 'package:applicationmemoire/screen/livreur.dart';
 import 'package:applicationmemoire/services/auth_data.dart';

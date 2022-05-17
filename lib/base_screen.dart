@@ -25,15 +25,6 @@ class _BaseScreenState extends State<BaseScreen> {
   void initState() {
     authUser = context.read<AuthUser>();
     userstram = getUsersInfo();
-    // userstram = database.streamDocument(
-    //   path: APIPath.userDocument(authUser.uid),
-    //   builder: (data, documentId) {
-    //     if (data.containsKey('isAdmin')) {
-    //       return Admin.fromMap(data, documentId);
-    //     }
-    //     return User.fromMap2(data, documentId);
-    //   },
-    // );
     super.initState();
   }
 
@@ -42,7 +33,7 @@ class _BaseScreenState extends State<BaseScreen> {
         .collection('Users')
         .where('idUser', isEqualTo: authUser.uid)
         .get();
-    //     return snapshot.docs[0]['type'];
+    // ignore: unnecessary_null_comparison
     if (snapshot == null) {
       print("error $snapshot");
     } else {
@@ -105,7 +96,7 @@ class _BaseScreenState extends State<BaseScreen> {
                     key: navigatorKey,
                     onGenerateRoute: (routeSettings) {
                       return MaterialPageRoute(
-                        builder: (context) => Admin(
+                        builder: (context) => const Admin(
                           title: '',
                         ),
                       );
@@ -132,18 +123,19 @@ class _BaseScreenState extends State<BaseScreen> {
                     onGenerateRoute: (routeSettings) {
                       if (user.type == 1) {
                         return MaterialPageRoute(
-                          builder: (context) => Restaurent(
+                          builder: (context) => const Restaurent(
                             title: '',
                           ),
                         );
                       }
                       if (user.type == 2) {
                         return MaterialPageRoute(
-                          builder: (context) => Livreur(
+                          builder: (context) => const Livreur(
                             title: '',
                           ),
                         );
                       }
+                      return null;
                     },
                   ),
                 ),
@@ -163,81 +155,3 @@ class _BaseScreenState extends State<BaseScreen> {
     );
   }
 }
-
-//   if (snapshot.data! is Resto) {
-          //     final Resto resto = snapshot.data! as Resto;
-
-          //     return Provider<Users>.value(
-          //       value: resto,
-          //       child: Provider.value(
-          //         value: resto,
-          //         child: WillPopScope(
-          //           onWillPop: () async {
-          //             final bool a = !await navigatorKey.currentState!.maybePop();
-          //             return a;
-          //           },
-          //           child: Navigator(
-          //             key: navigatorKey,
-          //             onGenerateRoute: (routeSettings) {
-          //               return MaterialPageRoute(
-          //                 builder: (context) => Restaurent(title: 'resto'),
-          //               );
-          //             },
-          //           ),
-          //         ),
-          //       ),
-          //     );
-          //   }
-          //   if (snapshot.data! is Admins) {
-          //     final Admins user = snapshot.data! as Admins;
-          //     print('current user ${user.id}');
-          //     return Provider<Admins>.value(
-          //       value: user,
-          //       child: Provider.value(
-          //         value: user,
-          //         child: WillPopScope(
-          //           onWillPop: () async {
-          //             final bool a = !await navigatorKey.currentState!.maybePop();
-          //             return a;
-          //           },
-          //           child: Navigator(
-          //             key: navigatorKey,
-          //             onGenerateRoute: (routeSettings) {
-          //               return MaterialPageRoute(
-          //                 builder: (context) => const Admin(
-          //                   title: '',
-          //                 ),
-          //               );
-          //             },
-          //           ),
-          //         ),
-          //       ),
-          //     );
-          //   }
-          //   if (snapshot.data! is Livreurs) {
-          //     final Livreurs user = snapshot.data! as Livreurs;
-          //     print('current user ${user.id}');
-          //     return Provider<Users>.value(
-          //       value: user,
-          //       child: Provider.value(
-          //         value: user,
-          //         child: WillPopScope(
-          //           onWillPop: () async {
-          //             final bool a = !await navigatorKey.currentState!.maybePop();
-          //             return a;
-          //           },
-          //           child: Navigator(
-          //             key: navigatorKey,
-          //             onGenerateRoute: (routeSettings) {
-          //               return MaterialPageRoute(
-          //                 builder: (context) => const Livreur(
-          //                   title: '',
-          //                 ),
-          //               );
-          //             },
-          //           ),
-          //         ),
-          //       ),
-          //     );
-          //   }
-          // }
