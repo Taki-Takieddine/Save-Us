@@ -52,7 +52,7 @@ class _DetailLivraisonState extends State<DetailLivraison> {
       });
        });
   }
- 
+ var see=0;
   @override
  
 
@@ -68,7 +68,7 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                                   children: [
-                                            Container(
+                                            SizedBox(
                                               width:MediaQuery.of(context).size.width, 
                                               height: ((MediaQuery.of(context).size.height)/2)-100,
                                               child: 
@@ -213,7 +213,8 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                 ),
                              ),
                               const SizedBox(height: 10,),
-                             Row(
+                              if(see==0) 
+                              Row(
                               children: [
                                 GestureDetector(
                                             onTap: () {
@@ -278,6 +279,38 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                          
                                            GestureDetector(
                                             onTap: () {
+                                              showDialog<void>(
+                                  context: context,
+                                  barrierDismissible: false, // user must tap button!
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Confirmation'),
+                                      content: SingleChildScrollView(
+                                        child: ListBody(
+                                          children: const <Widget>[
+                                            Text('êtes-vous vraiment sûr de vouloir accepter'),
+                                          ],
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: const Text(' Non'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                        TextButton(
+                                          child: const Text('Oui'),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                            setState(() {
+                                                see=1;
+                                              });
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  });
                                               
                                             },
                                             child: Container(
@@ -307,8 +340,102 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                             ),
                                           )),
                                           
+                                          
                               ],
-                           )
+                           ),
+                           if(see==1)
+                           Row(
+                              children: [
+                                GestureDetector(
+                                            onTap: () {
+                                  showDialog<void>(
+                                  context: context,
+                                  barrierDismissible: false, // user must tap button!
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('Nos remerciements'),
+                                      content: SingleChildScrollView(
+                                        child: ListBody(
+                                          children: const <Widget>[
+                                            Text('Un énorme remerciement de la part de notre équipe ,à la prochaine livraison'),
+                                          ],
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                       
+                                        TextButton(
+                                          child: const Text('OK'),
+                                          onPressed: () {
+                                            Navigator.push(context, MaterialPageRoute(builder: ((context) =>
+                                                                          const Livreur(title: ''))));
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+  );
+                                            },
+                                            child: Container(
+                                               height: 60,width: 120,
+                                              margin: const EdgeInsets.symmetric(horizontal: 50),
+                                              decoration: BoxDecoration(
+                                                color: Colors.orange,
+                                                borderRadius: BorderRadius.circular(10),
+                                              ),
+                                            child:  Center(
+                                              child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                children:const [
+                                                  
+                                                   Text(
+                                                  "Fini",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Icon(Icons.done,color: Colors.white,)
+                                                ], 
+                                              ),
+                                            ),
+                                          )),
+                                          GestureDetector(
+                                            onTap: () {
+                                              
+                                            },
+                                            child: Container(
+                                               height: 60,width: 120,
+                                              margin: const EdgeInsets.symmetric(horizontal: 0),
+                                              decoration: BoxDecoration(
+                                                color:const Color.fromARGB(255, 109, 189, 112) ,
+                                                borderRadius: BorderRadius.circular(10),
+                                              ),
+                                            child:  Center(
+                                              child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                children:const [
+                                                 
+                                                   Text(
+                                                  "Itinéraire ",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Icon(Icons.near_me,color: Colors.white,)
+                                                ], 
+                                              ),
+                                            ),
+                                          )),
+                                           
+                                          
+                                          
+                              ],)
+                          
                                          ], 
                                                 ) ,
                                               )),
@@ -322,33 +449,3 @@ class _DetailLivraisonState extends State<DetailLivraison> {
       
   }
 }
-// GestureDetector(
-//                                             onTap: () {
-                                              
-//                                             },
-//                                             child: Container(
-//                                                height: 60,width: 120,
-//                                               margin: const EdgeInsets.symmetric(horizontal: 0),
-//                                               decoration: BoxDecoration(
-//                                                 color:const Color.fromARGB(255, 109, 189, 112) ,
-//                                                 borderRadius: BorderRadius.circular(10),
-//                                               ),
-//                                             child:  Center(
-//                                               child: Row(
-//                                                 crossAxisAlignment: CrossAxisAlignment.center,
-//                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                                                 children:const [
-                                                 
-//                                                    Text(
-//                                                   "Itinéraire ",
-//                                                   style: TextStyle(
-//                                                     color: Colors.white,
-//                                                     fontSize: 15,
-//                                                     fontWeight: FontWeight.bold,
-//                                                   ),
-//                                                 ),
-//                                                 Icon(Icons.near_me,color: Colors.white,)
-//                                                 ], 
-//                                               ),
-//                                             ),
-//                                           )),

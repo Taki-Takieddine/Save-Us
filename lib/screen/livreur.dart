@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'navbar.dart';
 
-late final int type;
 class Livreur extends StatefulWidget {
    const Livreur({Key? key, required this.title}) : super(key: key);
 
