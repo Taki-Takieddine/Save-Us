@@ -1,31 +1,26 @@
-class Users {
-  Users({
-    required this.id,
-    required this.email,
-    required this.type,
-    required this.idUser,
-    required this.name,
-    required this.phoneNumber,
-    required this.wilaya,
-    int? nombreDonationTotal,
-    int? nombreDonation,
-    String? nomresto,
-    String? adressresto,
-    required int stars,
-  });
+import 'package:applicationmemoire/models/user.dart';
 
-  //type 0 admin
-  //type 1 resto
-  //type 2 livreur
-  final String id;
-  final String idUser;
-  final String email;
-  final int type;
-  final String name;
-  final int phoneNumber;
-  final int wilaya;
+class Admins extends Users {
+  Admins({
+    required String id,
+    required int type,
+    required String idUser,
+    required String name,
+    required int phoneNumber,
+    required int wilaya,
+    required String email,
+  }) : super(
+          id: id,
+          email: email,
+          type: type,
+          name: name,
+          idUser: idUser,
+          phoneNumber: phoneNumber,
+          wilaya: wilaya,
+          stars: 0,
+        );
 
-  factory Users.fromMap(Map<String, dynamic> data, String documentId) {
+  factory Admins.fromMap(Map<String, dynamic> data, String documentId) {
     final String id = documentId;
     final String email = data['email'] as String;
     final int type = data['type'] as int;
@@ -33,7 +28,7 @@ class Users {
     final int phoneNumber = data['phoneNumber'] as int;
     final String idUser = data['idUser'] as String;
     final int wilaya = data['wilaya'] as int;
-    return Users(
+    return Admins(
       id: id,
       email: email,
       type: type,
@@ -41,7 +36,6 @@ class Users {
       idUser: idUser,
       phoneNumber: phoneNumber,
       wilaya: wilaya,
-      stars: 0,
     );
   }
 

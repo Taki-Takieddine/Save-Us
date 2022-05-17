@@ -1,4 +1,5 @@
 import 'package:applicationmemoire/auth/widgets/text_field_sign_up.dart';
+import 'package:applicationmemoire/models/livreur.dart';
 import 'package:applicationmemoire/screen/livreur.dart';
 import 'package:applicationmemoire/screen/restaurent.dart';
 import 'package:applicationmemoire/models/user.dart';
@@ -66,34 +67,31 @@ class SignUP extends StatelessWidget {
                       height: 40,
                     ),
                     Center(
-                        child: Column(
-                          children:const[
-                            
-                             Text(
+                      child: Column(
+                        children: const [
+                          Text(
                             "Il faut vivre les uns pour les autres et non",
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
-                           
                           Text(
                             "pas les uns contre les autres.",
                             style: TextStyle(color: Colors.white, fontSize: 18),
                           ),
-                          ],
-                        ),
-                      )
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),
               Expanded(
                   child: Container(
                 decoration: const BoxDecoration(
-                   boxShadow: [
-                       BoxShadow(
-                         blurRadius: 8.0,
-                         spreadRadius: 0.5,
-                       color: Colors.blueGrey,
-                       offset: Offset(0.7, 0.7)
-                     )
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 8.0,
+                          spreadRadius: 0.5,
+                          color: Colors.blueGrey,
+                          offset: Offset(0.7, 0.7))
                     ],
                     color: Colors.white,
                     borderRadius:
@@ -287,94 +285,99 @@ class SignUP extends StatelessWidget {
                         const SizedBox(
                           height: 40,
                         ),
-      
+
                         const SizedBox(
                           height: 40,
                         ),
                         //button signup
-                        Builder(
-                          builder: (context) {
-                            return GestureDetector(
-                                onTap: () async {   
-                                  if (_formKey.currentState!.validate()) {
-                                    showSpinner(context);
-                                    _formKey.currentState!.save();
-                                    await FirebaseAuth.instance
-                                        .createUserWithEmailAndPassword(
-                                            email: emailContr.text.trim(),
-                                            password: pwdContr.text.trim())
-                                        .then((value) {
-                                      if (type == 1) {
-                                        final resto = Resto(
-                                          id: '',
-                                          type: type,
-                                          name: nomContr.text,
-                                          phoneNumber: int.parse(numtelContr.text),
-                                          wilaya: int.parse(wilayaContr.text),
-                                          nomresto: nomrestoContr.text,
-                                          adressresto: adressContr.text,
-                                          email: emailContr.text,
-                                          idUser: value.user!.uid, 
-                                          nombreDonationTotal: 0, nombreDonation: 0, stars: 1,
-                                        );
-                                        createResto(resto);
-                                      }
-                                      if (type == 2) {
-                                        final user = Users(
-                                          id: '',
-                                          wilaya: int.parse(wilayaContr.text),
-                                          type: type,
-                                          name: nomContr.text,
-                                          phoneNumber: int.parse(numtelContr.text),
-                                          email: emailContr.text,
-                                          idUser: value.user!.uid,
-                                        );
-                                        createUser(user);
-                                      }
-      
-                                      if (type == 1) {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: ((context) =>
-                                                    const Restaurent(
-                                                      title: '',
-                                                    ))));
-                                      }
-                                    });
+                        Builder(builder: (context) {
+                          return GestureDetector(
+                              onTap: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  showSpinner(context);
+                                  _formKey.currentState!.save();
+                                  await FirebaseAuth.instance
+                                      .createUserWithEmailAndPassword(
+                                          email: emailContr.text.trim(),
+                                          password: pwdContr.text.trim())
+                                      .then((value) {
+                                    if (type == 1) {
+                                      final resto = Resto(
+                                        id: '',
+                                        type: type,
+                                        name: nomContr.text,
+                                        phoneNumber:
+                                            int.parse(numtelContr.text),
+                                        wilaya: int.parse(wilayaContr.text),
+                                        nomresto: nomrestoContr.text,
+                                        adressresto: adressContr.text,
+                                        email: emailContr.text,
+                                        idUser: value.user!.uid,
+                                        nombreDonationTotal: 0,
+                                        nombreDonation: 0,
+                                        stars: 1,
+                                      );
+                                      createResto(resto);
+                                    }
                                     if (type == 2) {
+                                      final user = Livreurs(
+                                        id: '',
+                                        wilaya: int.parse(wilayaContr.text),
+                                        type: type,
+                                        name: nomContr.text,
+                                        phoneNumber:
+                                            int.parse(numtelContr.text),
+                                        email: emailContr.text,
+                                        idUser: value.user!.uid,
+                                      );
+                                      createUser(user);
+                                    }
+
+                                    if (type == 1) {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: ((context) =>
-                                                  const Livreur(title: '',))));
+                                                  const Restaurent(
+                                                    title: '',
+                                                  ))));
                                     }
-                                  } 
-                                },
-                                child: Container(
-                                  height: 50,
-                                  margin: const EdgeInsets.symmetric(horizontal: 50),
-                                  decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: const Center(
-                                    child: Text(
-                                      "Sign Up",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                  });
+                                  if (type == 2) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: ((context) =>
+                                                const Livreur(
+                                                  title: '',
+                                                ))));
+                                  }
+                                }
+                              },
+                              child: Container(
+                                height: 50,
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 50),
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    "Sign Up",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                ));
-                          }
-                        ),
+                                ),
+                              ));
+                        }),
                         const SizedBox(
                           height: 20,
                         ),
-      
+
                         Center(
                           child: RichText(
                             text: TextSpan(
@@ -425,11 +428,12 @@ class SignUP extends StatelessWidget {
     final docUser = FirebaseFirestore.instance.collection('Users').doc();
     await docUser.set(resto.toMapResto());
   }
-  showSpinner(BuildContext context){
+
+  showSpinner(BuildContext context) {
     final progress = ProgressHUD.of(context);
-                                  progress?.showWithText('Chargement...');
-                                  Future.delayed(const Duration(seconds: 2), () {
-                                   progress?.dismiss();
-                                  });
+    progress?.showWithText('Chargement...');
+    Future.delayed(const Duration(seconds: 2), () {
+      progress?.dismiss();
+    });
   }
 }
