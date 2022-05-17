@@ -65,9 +65,18 @@ class _LivreurState extends State<Livreur> {
                                 itemCount:snapshot.data?.docs.length,
                                  itemBuilder: (BuildContext context, int index) {
                                  return GestureDetector(
-                       onTap: () {
+                       onTap: ()async {
+                         final signale=snapshot.data?.docs[index].id;
+                         final snapshots=await FirebaseFirestore.instance
+                        .collection('signalement').doc(signale).get();
                          Navigator.push(
-                      context, MaterialPageRoute(builder: ((context) =>const DetailLivraison())));
+                      context, MaterialPageRoute(builder: ((context) => 
+                      DetailLivraison(idLivraison:
+                      (snapshot.data?.docs[index].id).toString(), 
+                      description:(snapshots.data()!['description']).toString(),
+                       nombreSDF:(snapshots.data()!['sdfNumber']),
+                        positionX: (snapshots.data()!['positionX']).toString(),
+                         positionY: (snapshots.data()!['positionY']).toString(),))));
                         },
                          child: Container(
                            margin: const EdgeInsets.all(10),
@@ -134,64 +143,4 @@ class _LivreurState extends State<Livreur> {
                 )
                );
               }
-
-  GestureDetector contenaireLivraison(BuildContext context) {
-    return GestureDetector(
-                       onTap: () {
-                         Navigator.push(
-                      context, MaterialPageRoute(builder: ((context) =>const DetailLivraison())));
-                        },
-                         child: Container(
-                         decoration: BoxDecoration(
-                         color: Colors.white,
-                         borderRadius: BorderRadius.circular(20),
-                        boxShadow: const [
-                            BoxShadow(
-                              blurRadius: 8.0,
-                              spreadRadius: 0.5,
-                            color: Colors.grey,
-                            offset: Offset(0.7, 0.7)
-                          )
-                          ],
-                          ),
-                         child: Padding(
-                           padding: const EdgeInsets.all(10),
-                           child:Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                             children: [
-                               Column(
-                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                              children: const[
-                               Text('Livraison :',style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.bold),),
-                               SizedBox(width: 5,),
-                                Text('gsysussncchuid' ,style: TextStyle(color: Colors.grey,fontSize: 13),),
-                              ],
-                              ),
-                              Row(
-                              children: const[
-                               Text('Adresse du resto:',style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.bold),),
-                               SizedBox(width: 5,),
-                                Text('jsp nchkl w syi' ,style: TextStyle(color: Colors.grey,fontSize: 13),),
-                              ],
-                              ),
-                              Row(
-                              children: const[
-                               Text('Adresse du SDF:',style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.bold),),
-                               SizedBox(width: 5,),
-                                Text('meme hna ghdi nchkel hihi' ,style: TextStyle(color: Colors.grey,fontSize: 13),),
-                              ],
-                              ),
-                            ],
-                           ),
-                             const Icon(Icons.arrow_right,color: Colors.purple,size: 35,)
-                             ],
-                           )
-                         )
-                         ),
-                     );
-                     
-  }
  }
