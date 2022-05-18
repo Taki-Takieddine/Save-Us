@@ -27,8 +27,4 @@ getUserLocation() async {
           '${placemarks[0].street} ${placemarks[0].subAdministrativeArea}';
           adressUsers =
           ' ${placemarks[0].administrativeArea} ${placemarks[0].country}';
-          print('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
-      print(adressUser);
-      
-     
 }

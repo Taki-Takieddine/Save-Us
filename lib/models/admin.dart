@@ -18,6 +18,7 @@ class Admins extends Users {
           phoneNumber: phoneNumber,
           wilaya: wilaya,
           stars: 0,
+          show: false,
         );
 
   factory Admins.fromMap(Map<String, dynamic> data, String documentId) {

@@ -11,7 +11,8 @@ class Users {
     int? nombreDonation,
     String? nomresto,
     String? adressresto,
-    required int stars,
+     int? stars,
+    required this.show
   });
 
   //type 0 admin
@@ -24,16 +25,19 @@ class Users {
   final String name;
   final int phoneNumber;
   final int wilaya;
+  final bool show;
 
   factory Users.fromMap(Map<String, dynamic> data, String documentId) {
     final String id = documentId;
     final String email = data['email'] as String;
+    final bool show = data['show'] as bool;
     final int type = data['type'] as int;
     final String name = data['name'] as String;
     final int phoneNumber = data['phoneNumber'] as int;
     final String idUser = data['idUser'] as String;
     final int wilaya = data['wilaya'] as int;
     return Users(
+      show: show,
       id: id,
       email: email,
       type: type,
@@ -44,15 +48,6 @@ class Users {
       stars: 0,
     );
   }
-
-/*factory User.fromMap2(Map<String, dynamic> data, String documentId) {
-    final int type = data['type'] as int;
-    if (type == 0) {
-      return Restaurent.fromMap(data, documentId);
-    }
-    return User.fromMap(data, documentId);
-  }
-  */
   Map<String, dynamic> toMap() {
     return {
       'email': email,
@@ -61,6 +56,7 @@ class Users {
       'idUser': idUser,
       'phoneNumber': phoneNumber,
       'wilaya': wilaya,
+      'show':show
     };
   }
 }

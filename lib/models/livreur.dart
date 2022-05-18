@@ -18,6 +18,7 @@ class Livreurs extends Users {
           phoneNumber: phoneNumber,
           wilaya: wilaya,
           stars: 0,
+          show: false
         );
 
   factory Livreurs.fromMap(Map<String, dynamic> data, String documentId) {

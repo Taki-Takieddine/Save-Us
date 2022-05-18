@@ -19,7 +19,7 @@ class Resto extends Users {
     required this.adressresto,
     required this.nombreDonationTotal,
     required this.nombreDonation,
-    required this.stars,
+    required this.stars, required bool show,
   }) : super(
           id: id,
           nombreDonation: nombreDonation,
@@ -33,6 +33,7 @@ class Resto extends Users {
           stars: stars,
           phoneNumber: phoneNumber,
           wilaya: wilaya,
+          show: false,
         );
 
   factory Resto.fromMap(Map<String, dynamic> data, String documentId) {
@@ -48,6 +49,7 @@ class Resto extends Users {
     final int nombreDonation = data['nombreDonation'] as int;
     final String nomresto = data['nomresto'] as String;
     final String idUser = data['idUser'] as String;
+    final bool show = data['show'] as bool;
     
     return Resto(
       id: id,
@@ -62,6 +64,7 @@ class Resto extends Users {
       adressresto: adressresto,
       nombreDonationTotal: nombreDonationTotal,
       nombreDonation: nombreDonation,
+      show:show,
     );
   }
   Map<String, dynamic> toMapResto() {

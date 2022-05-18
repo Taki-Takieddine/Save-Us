@@ -182,7 +182,10 @@ class _SignaleurState extends State<Signaleur> {
                                                   color: Colors.green,
                                                 ),
                                                 Center(
-                                                  child: Column(children: [
+                                                  child: Column(
+                                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    children: [
                                                     const SizedBox(height: 8,),
                                                     Text(adressUser),
                                                     Text(adressUsers),

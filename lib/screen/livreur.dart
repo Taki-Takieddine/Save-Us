@@ -28,117 +28,119 @@ class _LivreurState extends State<Livreur> {
       ),
       
       body: SafeArea(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: <Color>[
-                Colors.purple,
-                Colors.blueAccent, ]
-                   )
-                  ),
-                  child: Padding(
-                    padding:const EdgeInsets  .fromLTRB(10, 20, 10, 20),
-                    child: Column(
-                    children: [
-
-                      StreamBuilder<QuerySnapshot>(
-                    stream:FirebaseFirestore.instance.collection('signalement')
-                        .snapshots(),
-                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.hasError) {
-                        return const Text('Something went wrong');
-                      }
-                    
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const CircularProgressIndicator();
-                      }
-                    
-                      return Expanded(
-                        child: ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount:snapshot.data?.docs.length,
-                                 itemBuilder: (BuildContext context, int index) {
-                                 return GestureDetector(
-                       onTap: ()async {
-                         final signale=snapshot.data?.docs[index].id;
-                         final snapshots=await FirebaseFirestore.instance
-                        .collection('signalement').doc(signale).get();
-                         Navigator.push(
-                      context, MaterialPageRoute(builder: ((context) => 
-                      DetailLivraison(idLivraison:
-                      (snapshot.data?.docs[index].id).toString(), 
-                      description:(snapshots.data()!['description']).toString(),
-                       nombreSDF:(snapshots.data()!['sdfNumber']),
-                        positionX: (snapshots.data()!['positionX']).toString(),
-                         positionY: (snapshots.data()!['positionY']).toString(),))));
-                        },
-                         child: Container(
-                           margin: const EdgeInsets.all(10),
-                         decoration: BoxDecoration(
-                         color: Colors.white,
-                         borderRadius: BorderRadius.circular(20),
-                        boxShadow: const [
-                            BoxShadow(
-                              blurRadius: 8.0,
-                              spreadRadius: 0.5,
-                            color: Colors.grey,
-                            offset: Offset(0.7, 0.7)
-                          )
-                          ],
-                          ),
-                         child: Padding(
-                           padding: const EdgeInsets.all(10),
-                           child:Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                             children: [
-                               Column(
-                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                              children: [
-                              const Text('Livraison :',style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.bold),),
-                             const  SizedBox(width: 5,),
-                                 Text((snapshot.data?.docs[index].id).toString(),style:const TextStyle(color: Colors.grey,fontSize: 13),), 
-                              ],
-                              ),
-                              Row(
-                              children: const[
-                               Text('Adresse du resto:',style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.bold),),
-                               SizedBox(width: 5,),
-                                Text('jsp nchkl w syi' ,style: TextStyle(color: Colors.grey,fontSize: 13),),
-                              ],
-                              ),
-                              Row(
-                              children: const[
-                               Text('Adresse du SDF:',style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.bold),),
-                               SizedBox(width: 5,),
-                                Text('meme hna ghdi nchkel hihi' ,style: TextStyle(color: Colors.grey,fontSize: 13),),
-                              ],
-                              ),
-                            ],
-                           ),
-                             const Icon(Icons.arrow_right,color: Colors.purple,size: 35,)
-                             ],
-                           )
-                           
-                         )
-                         ),
-                         
-                     );
-                     }),
-                      );
-                    },
-                    )
-                    ],
+        child: SingleChildScrollView(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: <Color>[
+                  Colors.purple,
+                  Colors.blueAccent, ]
+                     )
                     ),
-                  ),
-                 )
+                    child: Padding(
+                      padding:const EdgeInsets  .fromLTRB(10, 20, 10, 20),
+                      child: Column(
+                      children: [
+        
+                        StreamBuilder<QuerySnapshot>(
+                      stream:FirebaseFirestore.instance.collection('signalement')
+                          .snapshots(),
+                      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError) {
+                          return const Text('Something went wrong');
+                        }
+                      
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        }
+                      
+                        return SingleChildScrollView(
+                          child: ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount:snapshot.data?.docs.length,
+                                   itemBuilder: (BuildContext context, int index) {
+                                   return GestureDetector(
+                           onTap: ()async {
+                           final signale=snapshot.data?.docs[index].id;
+                           final snapshots=await FirebaseFirestore.instance
+                          .collection('signalement').doc(signale).get();
+                           Navigator.push(
+                          context, MaterialPageRoute(builder: ((context) => 
+                          DetailLivraison(idLivraison:
+                          (snapshot.data?.docs[index].id).toString(), 
+                          description:(snapshots.data()!['description']).toString(),
+                           nombreSDF:(snapshots.data()!['sdfNumber']),
+                          positionX: (snapshots.data()!['positionX']).toString(),
+                           positionY: (snapshots.data()!['positionY']).toString(),))));
+                          },
+                           child: Container(
+                             margin: const EdgeInsets.all(10),
+                           decoration: BoxDecoration(
+                           color: Colors.white,
+                           borderRadius: BorderRadius.circular(20),
+                          boxShadow: const [
+                              BoxShadow(
+                                blurRadius: 8.0,
+                                spreadRadius: 0.5,
+                              color: Colors.grey,
+                              offset: Offset(0.7, 0.7)
+                            )
+                            ],
+                            ),
+                           child: Padding(
+                             padding: const EdgeInsets.all(10),
+                             child:Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                               children: [
+                                 Column(
+                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                               crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                children: [
+                                const Text('Livraison :',style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.bold),),
+                               const  SizedBox(width: 5,),
+                                   Text((snapshot.data?.docs[index].id).toString(),style:const TextStyle(color: Colors.grey,fontSize: 13),), 
+                                ],
+                                ),
+                                Row(
+                                children: const[
+                                 Text('Adresse du resto:',style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.bold),),
+                                 SizedBox(width: 5,),
+                                  Text('jsp nchkl w syi' ,style: TextStyle(color: Colors.grey,fontSize: 13),),
+                                ],
+                                ),
+                                Row(
+                                children: const[
+                                 Text('Adresse du SDF:',style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.bold),),
+                                 SizedBox(width: 5,),
+                                  Text('meme hna ghdi nchkel hihi' ,style: TextStyle(color: Colors.grey,fontSize: 13),),
+                                ],
+                                ),
+                              ],
+                             ),
+                               const Icon(Icons.arrow_right,color: Colors.purple,size: 35,)
+                               ],
+                             )
+                             
+                           )
+                           ),
+                           
+                                           );
+                                           }),
+                        );
+                      },
+                      )
+                      ],
+                      ),
+                    ),
+                   ),
+        )
                 )
                );
               }
