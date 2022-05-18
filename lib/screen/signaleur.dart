@@ -1,5 +1,6 @@
-// ignore_for_file: sized_box_for_whitespace
 
+
+import 'package:applicationmemoire/auth/localisation.dart';
 import 'package:applicationmemoire/choose_profil.dart';
 import 'package:applicationmemoire/models/signalement.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -36,12 +37,10 @@ class _SignaleurState extends State<Signaleur> {
         target: LatLng(loc.latitude ?? 0.0,loc.longitude?? 0.0),
         zoom: 14.0,
       )));
-      print(loc.latitude);
-      print(loc.longitude);
+      
       locLatitude = loc.latitude.toString();
       locLongitude = loc.longitude.toString();
       setState(() {
-        print("oizhgoifh $_markers");
        // _markers.clear();
         var mark =Marker(markerId: const MarkerId('votre position'),
             position: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0)
@@ -52,17 +51,20 @@ class _SignaleurState extends State<Signaleur> {
         ));
         }
        
-        print("dlqig eihio fehoh oihe $_markers");
+        
       });
        });
+       
   }
- 
+  
   @override
-  void initState() {
+  void initState(){
+  getUserLocation();
     getLocation();
     super.initState();
+  
   }
- 
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -77,7 +79,7 @@ class _SignaleurState extends State<Signaleur> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-               Container(
+               SizedBox(
                  width:MediaQuery.of(context).size.width, 
                  height: ((MediaQuery.of(context).size.height)/2)-100,
                  child: 
@@ -102,9 +104,10 @@ class _SignaleurState extends State<Signaleur> {
                        bottom:10,
                        top:220 ,
                        child:GestureDetector(
-                                        onTap: () {
-               
+                                        onTap: ()async {
+                                    
                                           getLocation();
+                                          
                                         },
                                         child: Container(
                  
@@ -164,31 +167,30 @@ class _SignaleurState extends State<Signaleur> {
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
-                                            TextFormField(
-                                              controller: adressContr,
-                                              decoration: const InputDecoration(
-                                                labelText: 'Position acctuelle',
-                                                border: OutlineInputBorder(),
-                                                prefixIcon: Icon(
+                                           Container(
+                                             height: 50,
+                                             decoration: BoxDecoration(
+                                                border: Border.all(color: Colors.grey),
+                                               color:Colors.white,
+                                               borderRadius:BorderRadius.circular(5) ,
+                                             ),
+                                             child: Row(
+                                               children: [
+                                                 const SizedBox(width: 8,),
+                                                 const Icon(
                                                   Icons.add_location,
                                                   color: Colors.green,
                                                 ),
-                                                labelStyle: TextStyle(
-                                                  fontSize: 15.0,
-                                                ),
-                                              ),
-                                              keyboardType: TextInputType.text,
-                                              validator: (value) {
-                                                if (value!.isEmpty) {
-                                                  return 'entrer une position en cliquant sur le bouton';
-                                                }
-                                                               
-                                                return null;
-                                              },
-                                              onSaved: (value) {
-                                                adressContr.text = value!;
-                                              },
-                                            ),
+                                                Center(
+                                                  child: Column(children: [
+                                                    const SizedBox(height: 8,),
+                                                    Text(adressUser),
+                                                    Text(adressUsers),
+                                                  ],)
+                                                )
+                                               ],
+                                             ),
+                                           ),
                                             const SizedBox(height: 10,),
                                             TextFormField(
                                               controller: nbsdfContr,
@@ -333,4 +335,5 @@ class _SignaleurState extends State<Signaleur> {
     },
   );
 }
+
 }
