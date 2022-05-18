@@ -315,7 +315,7 @@ class SignUP extends StatelessWidget {
                                         idUser: value.user!.uid,
                                         nombreDonationTotal: 0,
                                         nombreDonation: 0,
-                                        stars: 1,
+                                        stars: 1, show: false,
                                       );
                                       createResto(resto);
                                     }

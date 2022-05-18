@@ -45,6 +45,7 @@ class _BaseScreenState extends State<BaseScreen> {
           'phoneNumber': snapshot.docs[0]['phoneNumber'],
           'idUser': snapshot.docs[0]['idUser'],
           'wilaya': snapshot.docs[0]['wilaya'],
+          'show': snapshot.docs[0]['show'],
         }, snapshot.docs[0].id);
       } else if (snapshot.docs[0]['type'] == 1) {
         return Resto.fromMap({
@@ -59,6 +60,7 @@ class _BaseScreenState extends State<BaseScreen> {
           'adressresto': snapshot.docs[0]['adressresto'],
           'nombreDonationTotal': snapshot.docs[0]['nombreDonationTotal'],
           'nombreDonation': snapshot.docs[0]['nombreDonation'],
+          'show': snapshot.docs[0]['show'],
         }, snapshot.docs[0].id);
       } else if (snapshot.docs[0]['type'] == 2) {
         return Livreurs.fromMap({
@@ -68,6 +70,7 @@ class _BaseScreenState extends State<BaseScreen> {
           'phoneNumber': snapshot.docs[0]['phoneNumber'],
           'idUser': snapshot.docs[0]['idUser'],
           'wilaya': snapshot.docs[0]['wilaya'],
+          'show': snapshot.docs[0]['show'],
         }, snapshot.docs[0].id);
       }
     }

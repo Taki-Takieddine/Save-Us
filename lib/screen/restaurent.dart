@@ -119,12 +119,14 @@ getNombreDonation()async{
                                , type: snapshot.docs[0]['type'],
                                 idUser: snapshot.docs[0]['idUser'],
                                  name: snapshot.docs[0]['name'], 
+                                 adressresto:snapshot.docs[0]['adressresto'],
                                  phoneNumber:snapshot.docs[0]['phoneNumber'],
-                                 wilaya: snapshot.docs[0]['wilaya'], adressresto: '', 
+                                 wilaya: snapshot.docs[0]['wilaya'], 
                                  nombreDonation:snapshot.docs[0]['nombreDonation'] +1,
                                   nombreDonationTotal:snapshot.docs[0]['nombreDonation'] +1,
                                   nomresto:snapshot.docs[0]['nomresto'],
-                                   stars: snapshot.docs[0]['stars'], show:snapshot.docs[0]['show']);
+                                   stars: snapshot.docs[0]['stars'],
+                                    show:snapshot.docs[0]['show']);
                                    await FirebaseFirestore.instance
                               .collection('Users').doc(snapshot.docs[0].id)
                               .set(user.toMapResto());
@@ -261,7 +263,8 @@ getNombreDonation()async{
                                             idUser: snapshots.docs[0]['idUser'],
                                             name: snapshots.docs[0]['name'], 
                                             phoneNumber:snapshots.docs[0]['phoneNumber'],
-                                            wilaya: snapshots.docs[0]['wilaya'], adressresto: '', 
+                                            wilaya: snapshots.docs[0]['wilaya'],
+                                            adressresto: snapshots.docs[0]['adressresto'], 
                                             nombreDonation:snapshots.docs[0]['nombreDonation'] -1,
                                               nombreDonationTotal:snapshots.docs[0]['nombreDonation'] -1,
                                               nomresto:snapshots.docs[0]['nomresto'],
@@ -339,20 +342,7 @@ getNombreDonation()async{
     final docsac = FirebaseFirestore.instance.collection('sac').doc();
     await docsac.set(sac.toMapSac());
   }
-  
 
-Future getTypeUser(String idUser) async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('Users').where( idUser)
-        .get();
-    return snapshot.docs[0]['type'];
-  }
-  Future getAdresseUser(String idUser) async {
-    final snapshot = await FirebaseFirestore.instance
-        .collection('Users').where( 'idUser' ,isEqualTo: idResto)
-        .get();
-    return snapshot.docs[0]['adressresto'];
-  }
 }
 
  

@@ -79,7 +79,8 @@ class Resto extends Users {
       'email': email,
       'nombreDonation': nombreDonation,
       'nombreDonationTotal': nombreDonationTotal,
-      'stars': stars
+      'stars': stars,
+      'show':show,
     };
   }
 }
