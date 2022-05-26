@@ -1,6 +1,7 @@
 class Signalement {
-  Signalement({
+  Signalement( {
     required this.id,
+    required this.adressSDF,
     required this.description,
     required this.sdfNumber,
    // required this.idResto,
@@ -22,6 +23,7 @@ class Signalement {
   final String positionX;
   final String positionY;
   final int wilaya;
+  final String adressSDF;
   //final String idLivreur;
   
   factory Signalement.fromMapSignalement(Map<String, dynamic> data, String documentId) {
@@ -33,6 +35,7 @@ class Signalement {
     final bool etat= data['etat'] as bool;
     final String positionX=data['posituinX']as String;
     final String positionY=data['posituinY']as String;
+    final String adressSDF=data['adressSDF']as String;
     final int wilaya = data['wilaya'] as int;
    // final String idLivreur = data['idLivreur'] as String;
     return Signalement(
@@ -43,7 +46,7 @@ class Signalement {
       sdfNumber: sdfNumber,
       etat: etat,
       positionX: positionX,
-      positionY: positionY, wilaya: wilaya,
+      positionY: positionY, wilaya: wilaya, adressSDF: adressSDF,
       //idLivreur: idLivreur,
     );
   }
@@ -57,6 +60,7 @@ class Signalement {
       'etat': etat,
       'positionX': positionX,
       'positionY': positionY, 'wilaya': wilaya,
+      'adressSDF':adressSDF,
      // 'idLivreur': idLivreur,
 
     };

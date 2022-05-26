@@ -222,7 +222,7 @@ class _SignaleurState extends State<Signaleur> {
                                             ),
                                            const SizedBox(height: 10,),
                                             TextFormField(
-                                              minLines: 3, // any number you need (It works as the rows for the textarea)
+                                              minLines: 3, 
                                               keyboardType: TextInputType.multiline,
                                               maxLines: 15,
                                               controller: descriptionContr,
@@ -261,7 +261,7 @@ class _SignaleurState extends State<Signaleur> {
                                                   positionX: locLatitude, 
                                                   positionY: locLongitude, 
                                                   sdfNumber: int.parse(nbsdfContr.text), 
-                                                  wilaya: 31);
+                                                  wilaya: 31, adressSDF: adressUser+adressUsers);
                                                 
                                               createSignal(signal);
                                               _showMyDialog();
