@@ -183,34 +183,9 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                                     Text((widget.nombreSDF).toString(),style:  const TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 13),)
                                                   ]), 
                                                   const SizedBox(height: 15),
-                                                    Row(
+                                                  
                                                             
-                                                    children:const [
-                                                       Icon(Icons.circle,color: Colors.white,size: 8,),
-                                                        SizedBox(width: 4,),
-                                                       Text('Position X:',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold,fontSize: 15),)
-                                                    ],
-
-                                                  ),
-                                                   const SizedBox(height: 5,),
-                                                  Row(children:[ const SizedBox(width: 10,),
-                                                    Text(widget.positionX,style:  const TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 13),)
-                                                  ]), 
-                                                 const SizedBox(height: 15),
-                                                    Row(
-                                                            
-                                                    children:const [
-                                                       Icon(Icons.circle,color: Colors.white,size: 8,),
-                                                        SizedBox(width: 4,),
-                                                       Text('Position Y:',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold,fontSize: 15),)
-                                                    ],
-
-                                                  ),
-                                                   const SizedBox(height: 5,),
-                                                  Row(children:[ const SizedBox(width: 10,),
-                                                    Text(widget.positionY,style:  const TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 13),)
-                                                  ]), 
-                                                 const SizedBox(height: 15),
+                                                   
                                                    Row(
                                                             
                                                     children:const [
