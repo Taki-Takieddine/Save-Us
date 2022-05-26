@@ -10,7 +10,11 @@ class DetailLivraison extends StatefulWidget {
   final int nombreSDF;
   final String positionX;
   final String positionY;
- const DetailLivraison({Key? key, required this.idLivraison,required this.description, required this.nombreSDF,required this.positionX, required this.positionY}) : super(key: key);
+  final String adressSDF;
+
+
+  
+ const DetailLivraison({Key? key, required this.idLivraison,required this.description, required this.nombreSDF,required this.positionX, required this.positionY, required this.adressSDF}) : super(key: key);
 
   @override
   State<DetailLivraison> createState() => _DetailLivraisonState();
@@ -146,7 +150,23 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                                    const SizedBox(height: 5,),
                                                   Row(children:[ const SizedBox(width: 10,),
                                                     Text(widget.idLivraison,style:  const TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 13),)
-                                                  ]), 
+                                                  ]), const SizedBox(height: 15),
+                                                    Row(
+                                                            
+                                                    children:const [
+                                                       Icon(Icons.circle,color: Colors.white,size: 8,),
+                                                        SizedBox(width: 4,),
+                                                       Text('Adresse de(s) SDF :',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold,fontSize: 15),)
+                                                    ],
+
+                                                  ),
+                                                   const SizedBox(height: 5,),
+                                                  SingleChildScrollView(
+                                                    scrollDirection: Axis.horizontal,
+                                                    child: Row(children:[ const SizedBox(width: 10,),
+                                                      Text(widget.adressSDF,style:  const TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 13),)
+                                                    ]),
+                                                  ), const SizedBox(height: 15),
                                                   const SizedBox(height: 15),
                                                     Row(
                                                             
@@ -157,6 +177,7 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                                     ],
 
                                                   ),
+
                                                    const SizedBox(height: 5,),
                                                   Row(children:[ const SizedBox(width: 10,),
                                                     Text((widget.nombreSDF).toString(),style:  const TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 13),)
