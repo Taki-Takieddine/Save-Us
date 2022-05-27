@@ -7,8 +7,8 @@ bool getLocation = false;
   bool isLoading = false;
 late  String adressUser='Votre position';
 late  String adressUsers='';
-// ignore: prefer_typing_uninitialized_variables
-late  final position ;
+
+late final position ;
 getUserLocation() async {
       position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,

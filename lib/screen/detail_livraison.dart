@@ -1,5 +1,7 @@
+import 'package:applicationmemoire/auth/localisation.dart';
 import 'package:applicationmemoire/screen/livreur.dart';
 import 'package:applicationmemoire/screen/navbar.dart';
+import 'package:applicationmemoire/services/map_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -26,36 +28,12 @@ class _DetailLivraisonState extends State<DetailLivraison> {
  late String locLongitude;  GoogleMapController? _controller;
   Location currentLocation = Location();
 
-
-
-  void getLocation()async{
- 
-    currentLocation.onLocationChanged.listen((LocationData loc){
- 
-      _controller?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        target: LatLng(loc.latitude ?? 0.0,loc.longitude?? 0.0),
-        zoom: 14.0,
-      )));
-      print(loc.latitude);
-      print(loc.longitude);
-      locLatitude = loc.latitude.toString();
-      locLongitude = loc.longitude.toString();
-      setState(() {
-        print("oizhgoifh $_markers");
-
-        var mark =Marker(markerId: const MarkerId('votre position'),
-            position: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0)
-        );
-        if(!_markers.contains(mark)) {
-          _markers.add(Marker(markerId: const MarkerId('votre position'),
-            position: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0)
-        ));
-        }
-       
-        print("dlqig eihio fehoh oihe $_markers");
-      });
-       });
+@override
+  void initState() {
+    getUserLocation();
+    super.initState();
   }
+
  var see=0;
   @override
  
@@ -399,7 +377,7 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                           )),
                                           GestureDetector(
                                             onTap: () {
-                                              
+                                              MapUtils.openMap(position.latitude,position.longitude);
                                             },
                                             child: Container(
                                                height: 60,width: 120,
