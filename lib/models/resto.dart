@@ -6,6 +6,8 @@ class Resto extends Users {
   final int nombreDonationTotal;
   final int nombreDonation;
   final int stars;
+  final String positionX;
+  final String positionY;
 
   Resto({
     required String id,
@@ -20,6 +22,8 @@ class Resto extends Users {
     required this.nombreDonationTotal,
     required this.nombreDonation,
     required this.stars, required bool show,
+    required this.positionX,
+    required this.positionY,
   }) : super(
           id: id,
           nombreDonation: nombreDonation,
@@ -50,6 +54,8 @@ class Resto extends Users {
     final String nomresto = data['nomresto'] as String;
     final String idUser = data['idUser'] as String;
     final bool show = data['show'] as bool;
+    final String positionX=data['positionX']as String;
+    final String positionY=data['positionY']as String;
     
     return Resto(
       id: id,
@@ -65,6 +71,8 @@ class Resto extends Users {
       nombreDonationTotal: nombreDonationTotal,
       nombreDonation: nombreDonation,
       show:show,
+      positionX:positionX,
+      positionY:positionY,
     );
   }
   Map<String, dynamic> toMapResto() {
@@ -81,6 +89,8 @@ class Resto extends Users {
       'nombreDonationTotal': nombreDonationTotal,
       'stars': stars,
       'show':show,
+      'positionX':positionX,
+      'positionY':positionY,
     };
   }
 }

@@ -1,3 +1,4 @@
+import 'package:applicationmemoire/auth/localisation.dart';
 import 'package:applicationmemoire/auth/widgets/text_field_sign_up.dart';
 import 'package:applicationmemoire/models/livreur.dart';
 import 'package:applicationmemoire/screen/livreur.dart';
@@ -8,26 +9,48 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:geolocator/geolocator.dart';
 import '../models/resto.dart';
 import '../models/user.dart';
 import 'login.dart';
 
-class SignUP extends StatelessWidget {
+class SignUP extends StatefulWidget {
   final int type;
   SignUP({
     Key? key,
     required this.type,
   }) : super(key: key);
+
+  @override
+  State<SignUP> createState() => _SignUPState();
+}
+
+class _SignUPState extends State<SignUP> {
   final emailContr = TextEditingController();
+
   final pwdContr = TextEditingController();
+
   final nomContr = TextEditingController();
+
   final wilayaContr = TextEditingController();
+
   final numtelContr = TextEditingController();
+
   final nomrestoContr = TextEditingController();
+
   final adressContr = TextEditingController();
+
   late final String confirmePWD;
+
   late final _formKey = GlobalKey<FormState>();
 
+ @override
+ @override
+ void initState() {
+   getUserLocation();
+   super.initState();
+   
+ }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -177,11 +200,11 @@ class SignUP extends StatelessWidget {
                                     numtelContr.text = value.toString();
                                   },
                                 ),
-                                if (type == 1)
+                                if (widget.type == 1)
                                   const SizedBox(
                                     height: 15,
                                   ),
-                                if (type == 1)
+                                if (widget.type == 1)
                                   Textfield(
                                       lable: 'nom du restaurant',
                                       icon: const Icon(
@@ -190,11 +213,11 @@ class SignUP extends StatelessWidget {
                                       ),
                                       return1: 'nom invalid',
                                       controller: nomrestoContr),
-                                if (type == 1)
+                                if (widget.type == 1)
                                   const SizedBox(
                                     height: 15,
                                   ),
-                                if (type == 1)
+                                if (widget.type == 1)
                                   Textfield(
                                       lable: 'adresse du restaurant',
                                       icon: const Icon(
@@ -301,10 +324,10 @@ class SignUP extends StatelessWidget {
                                           email: emailContr.text.trim(),
                                           password: pwdContr.text.trim())
                                       .then((value) {
-                                    if (type == 1) {
+                                    if (widget.type == 1) {
                                       final resto = Resto(
                                         id: '',
-                                        type: type,
+                                        type: widget.type,
                                         name: nomContr.text,
                                         phoneNumber:
                                             int.parse(numtelContr.text),
@@ -315,15 +338,16 @@ class SignUP extends StatelessWidget {
                                         idUser: value.user!.uid,
                                         nombreDonationTotal: 0,
                                         nombreDonation: 0,
-                                        stars: 1, show: false,
+                                        stars: 1, show: false, positionX:( position.latitude).toString(),
+                                        positionY: (position.longitude).toString(),
                                       );
                                       createResto(resto);
                                     }
-                                    if (type == 2) {
+                                    if (widget.type == 2) {
                                       final user = Livreurs(
                                         id: '',
                                         wilaya: int.parse(wilayaContr.text),
-                                        type: type,
+                                        type: widget.type,
                                         name: nomContr.text,
                                         phoneNumber:
                                             int.parse(numtelContr.text),
@@ -333,7 +357,7 @@ class SignUP extends StatelessWidget {
                                       createUser(user);
                                     }
 
-                                    if (type == 1) {
+                                    if (widget.type == 1) {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -343,7 +367,7 @@ class SignUP extends StatelessWidget {
                                                   ))));
                                     }
                                   });
-                                  if (type == 2) {
+                                  if (widget.type == 2) {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -400,7 +424,7 @@ class SignUP extends StatelessWidget {
                                             MaterialPageRoute(
                                                 builder: ((context) => LogIn(
                                                       title: '',
-                                                      type: type,
+                                                      type: widget.type,
                                                     ))));
                                       })
                               ],

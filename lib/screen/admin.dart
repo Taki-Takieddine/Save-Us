@@ -231,7 +231,8 @@ class _AdminState extends State<Admin> {
                                               nombreDonationTotal:snapshots.docs[0]['nombreDonation'] -1,
                                               nomresto:snapshots.docs[0]['nomresto'],
                                               stars: snapshots.docs[0]['stars'],
-                                              show:true,);
+                                              show:true, positionX: snapshots.docs[0]['positionX'],
+                                               positionY: snapshots.docs[0]['positionY'] ,);
                                               await FirebaseFirestore.instance
                                           .collection('Users').doc(snapshots.docs[0].id)
                                           .set(user.toMapResto());

@@ -126,7 +126,9 @@ getNombreDonation()async{
                                   nombreDonationTotal:snapshot.docs[0]['nombreDonation'] +1,
                                   nomresto:snapshot.docs[0]['nomresto'],
                                    stars: snapshot.docs[0]['stars'],
-                                    show:snapshot.docs[0]['show']);
+                                    show:snapshot.docs[0]['show'],
+                                    positionX: snapshot.docs[0]['positionX'],
+                                               positionY: snapshot.docs[0]['positionY'] ,);
                                    await FirebaseFirestore.instance
                               .collection('Users').doc(snapshot.docs[0].id)
                               .set(user.toMapResto());
@@ -268,7 +270,9 @@ getNombreDonation()async{
                                             nombreDonation:snapshots.docs[0]['nombreDonation'] -1,
                                               nombreDonationTotal:snapshots.docs[0]['nombreDonation'] -1,
                                               nomresto:snapshots.docs[0]['nomresto'],
-                                              stars: snapshots.docs[0]['stars'], show: true);
+                                              stars: snapshots.docs[0]['stars'], show: true,
+                                              positionX: snapshots.docs[0]['positionX'],
+                                               positionY: snapshots.docs[0]['positionY'] ,);
                                               await FirebaseFirestore.instance
                                           .collection('Users').doc(snapshots.docs[0].id)
                                           .set(user.toMapResto());
