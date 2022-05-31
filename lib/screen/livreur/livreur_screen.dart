@@ -54,12 +54,7 @@ class _LivreurScreenState extends State<LivreurScreen> {
     return await Geolocator.getCurrentPosition();
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(

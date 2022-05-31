@@ -49,6 +49,7 @@ class LivreurBloc {
           .addAll(sacs.where((element) => element.idResto == resto.idUser));
 
       for (Signalement signalement in signalamentList) {
+        // khess ykoun adena le nombre de sac  egale a le nombre de sdf
         int sacInRestoListLength = sacInRestoList.length;
         for (int i = 0;
             i < (sacInRestoListLength - signalement.sdfNumber);
@@ -57,7 +58,6 @@ class LivreurBloc {
         }
 
         if (sacInRestoList.length == signalement.sdfNumber) {
-          // khess ykoun adena le nombre de sac  egale a le nombre de sdf
           double dsLivreurResto = Geolocator.distanceBetween(
             livreurPosition!.latitude,
             livreurPosition!.longitude,
