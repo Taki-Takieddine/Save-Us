@@ -1,4 +1,5 @@
 import 'package:applicationmemoire/screen/livreur/livraison.dart';
+import 'package:applicationmemoire/screen/livreur/livraison_cart.dart';
 import 'package:applicationmemoire/screen/livreur/livreur_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -58,16 +59,6 @@ class _LivreurScreenState extends State<LivreurScreen> {
     super.initState();
   }
 
-  Future<void> openMap(Livraison l) async {
-    String googleUrl =
-        'https://www.google.com/maps/dir/?api=1&destination=${l.signalement.positionX},${l.signalement.positionY}&waypoints=${l.resto.positionX},${l.resto.positionY}';
-
-    if (await canLaunch(googleUrl)) {
-      await launch(googleUrl);
-    } else {
-      //throw 'Could not open the map.';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,21 +96,7 @@ class _LivreurScreenState extends State<LivreurScreen> {
                               if (snapshot.hasData && (snapshot.data != null)) {
                                 var livraison = snapshot.data!;
                                 // hena zawkiha kima tebghi
-                                return ListTile(
-                                  title: const Text(
-                                      "hedi hiya la livrason la plus proche"),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(livraison.resto.adressresto),
-                                      Text(livraison.signalement.description),
-                                    ],
-                                  ),
-                                  onTap: () {
-                                    openMap(livraison);
-                                  },
-                                );
+                                return LivraisonCart(livraison: livraison);
                               } else if (snapshot.hasError) {
                                 return CircularProgressIndicator();
                               }

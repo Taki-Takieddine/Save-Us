@@ -87,11 +87,18 @@ class LivreurBloc {
   ) {
     List<Livraison> livraisonPossible = [];
     for (Resto resto in restoList) {
-      int sacForResto =
-          sacs.where((element) => element.idResto == resto.idUser).length;
+      List<Sac> sacInRestoList =
+          sacs.where((element) => element.idResto == resto.idUser).toList();
 
       for (Signalement signalement in signalamentList) {
-        if (sacForResto >= signalement.sdfNumber) {
+        if (sacInRestoList.length >= signalement.sdfNumber) {
+          // khess ykoun adena le nombre de sac  egale a le nombre de sdf
+          for (int i = 0;
+              i < (sacInRestoList.length - signalement.sdfNumber);
+              i++) {
+            sacInRestoList.removeLast();
+          }
+
           double dsLivreurResto = Geolocator.distanceBetween(
             livreurPosition!.latitude,
             livreurPosition!.longitude,
@@ -107,8 +114,12 @@ class LivreurBloc {
           );
           double total = dsLivreurResto + dsRestoSign;
 
-          livraisonPossible.add(
-              Livraison(signalement: signalement, resto: resto, dest: total));
+          livraisonPossible.add(Livraison(
+            signalement: signalement,
+            resto: resto,
+            sacList: sacInRestoList,
+            dest: total,
+          ));
         }
       }
     }
