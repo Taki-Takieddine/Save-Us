@@ -85,7 +85,7 @@ class LivreurBloc {
     return livraisonPossible;
   }
 
-  Future<Livraison> getLivraison() async {
+  Future<List<Livraison>> getLivraison() async {
     List<Sac> sacs = await getListSacs();
     //
     Set<String> restoIdsList = sacs.map((e) => e.idResto).toSet();
@@ -100,6 +100,6 @@ class LivreurBloc {
     livraisonPossibleList.sort((a, b) => a.dest.compareTo(b.dest));
     // print('******************************');
     // print(livraisonPossibleList);
-    return livraisonPossibleList.first;
+    return livraisonPossibleList;
   }
 }

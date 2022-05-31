@@ -1,27 +1,19 @@
+
 import 'package:applicationmemoire/auth/localisation.dart';
+import 'package:applicationmemoire/screen/livreur/livraison.dart';
 import 'package:applicationmemoire/screen/livreur/livreur_screen.dart';
 import 'package:applicationmemoire/screen/navbar.dart';
-import 'package:applicationmemoire/services/map_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailLivraison extends StatefulWidget {
-  final String idLivraison;
-  final String description;
-  final int nombreSDF;
-  final String positionX;
-  final String positionY;
-  final String adressSDF;
-
+  
+final Livraison Liv;
   const DetailLivraison(
       {Key? key,
-      required this.idLivraison,
-      required this.description,
-      required this.nombreSDF,
-      required this.positionX,
-      required this.positionY,
-      required this.adressSDF})
+     required this.Liv})
       : super(key: key);
 
   @override
@@ -34,13 +26,46 @@ class _DetailLivraisonState extends State<DetailLivraison> {
   late String locLongitude;
   GoogleMapController? _controller;
   Location currentLocation = Location();
+  Future<void> openMap(Livraison l) async {
+    String googleUrl =
+        'https://www.google.com/maps/dir/?api=1&destination=${l.signalement.positionX},${l.signalement.positionY}&waypoints=${l.resto.positionX},${l.resto.positionY}';
 
+    if (await canLaunch(googleUrl)) {
+      await launch(googleUrl);
+    } else {
+      //throw 'Could not open the map.';
+    }
+  }
+  
   @override
   void initState() {
-    getUserLocation();
+       currentLocation.onLocationChanged.listen((LocationData loc){
+ 
+      _controller?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        target: LatLng(loc.latitude ?? 0.0,loc.longitude?? 0.0),
+        zoom: 14.0,
+      )));
+      
+      locLatitude = loc.latitude.toString();
+      locLongitude = loc.longitude.toString();
+      setState(() {
+       // _markers.clear();
+        var mark =Marker(markerId: const MarkerId('votre position'),
+            position: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0)
+        );
+        if(!_markers.contains(mark)) {
+          _markers.add(Marker(markerId: const MarkerId('votre position'),
+            position: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0)
+        ));
+        }
+       
+        
+      });
+       });
+       
     super.initState();
   }
-
+  @override
   var see = 0;
   @override
   Widget build(BuildContext context) {
@@ -131,61 +156,31 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.stretch,
                                           children: [
-                                            Row(
-                                              children: const [
-                                                Icon(
-                                                  Icons.circle,
-                                                  color: Colors.white,
-                                                  size: 8,
-                                                ),
-                                                SizedBox(
-                                                  width: 4,
-                                                ),
-                                                Text(
-                                                  'ID de la livraison :',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 15),
-                                                )
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Row(children: [
-                                              const SizedBox(
-                                                width: 10,
-                                              ),
-                                              Text(
-                                                widget.idLivraison,
-                                                style: const TextStyle(
+                                         
+                                            
+                                            SingleChildScrollView(
+                                              scrollDirection:
+                                                          Axis.horizontal,
+                                              child: Row(
+                                                children: const [
+                                                  Icon(
+                                                    Icons.circle,
                                                     color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 13),
-                                              )
-                                            ]),
-                                            const SizedBox(height: 15),
-                                            Row(
-                                              children: const [
-                                                Icon(
-                                                  Icons.circle,
-                                                  color: Colors.white,
-                                                  size: 8,
-                                                ),
-                                                SizedBox(
-                                                  width: 4,
-                                                ),
-                                                Text(
-                                                  'Adresse de(s) SDF :',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 15),
-                                                )
-                                              ],
+                                                    size: 8,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 4,
+                                                  ),
+                                                  Text(
+                                                    'Adresse de(s) SDF :',
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 15),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                             const SizedBox(
                                               height: 5,
@@ -197,7 +192,7 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                                   width: 10,
                                                 ),
                                                 Text(
-                                                  widget.adressSDF,
+                                                  widget.Liv.signalement.adressSDF.toString(),
                                                   style: const TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
@@ -207,6 +202,102 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                               ]),
                                             ),
                                             const SizedBox(height: 15),
+                                             SingleChildScrollView(
+                                              scrollDirection:
+                                                          Axis.horizontal,
+                                              child: Row(
+                                                children: const [
+                                                  Icon(
+                                                    Icons.circle,
+                                                    color: Colors.white,
+                                                    size: 8,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 4,
+                                                  ),
+                                                  Text(
+                                                    'Adresse du resto :',
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 15),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            SingleChildScrollView(
+                                              scrollDirection: Axis.horizontal,
+                                              child: Row(children: [
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text(
+                                                  widget.Liv.resto.adressresto.toString(),
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 13),
+                                                )
+                                              ]),
+                                            ),
+                                            const SizedBox(height: 15),
+                                             SingleChildScrollView(
+                                            scrollDirection:
+                                             Axis.horizontal,
+                                              child: Row(
+                                                children: const [
+                                                  Icon(
+                                                    Icons.circle,
+                                                    color: Colors.white,
+                                                    size: 8,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 4,
+                                                  ),
+                                                  Text(
+                                                    'ID des sac pour cette livraison la livraison :',
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 15),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Row(children: [
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                             
+                                                  SingleChildScrollView(
+                                                   scrollDirection:
+                                                  Axis.horizontal,
+                                                  child: Column(
+                                                    children:[
+                                                      const SizedBox(height: 5,),
+                                                       for(var i=0;i<widget.Liv.sacList.length;i++)
+                                                      Text(
+                                                    widget.Liv.sacList[i].id.toString(),
+                                                    style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 13),
+                                                  ),
+                                              
+                                                    ] 
+                                                  ),
+                                                )
+                                              
+                                            ]),
                                             const SizedBox(height: 15),
                                             Row(
                                               children: const [
@@ -236,7 +327,7 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                                 width: 10,
                                               ),
                                               Text(
-                                                (widget.nombreSDF).toString(),
+                                                widget.Liv.signalement.sdfNumber.toString(),
                                                 style: const TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.bold,
@@ -272,7 +363,7 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                                 width: 10,
                                               ),
                                               Text(
-                                                widget.description,
+                                                widget.Liv.signalement.description.toString(),
                                                 style: const TextStyle(
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.bold,
@@ -296,45 +387,15 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                               children: [
                                 GestureDetector(
                                     onTap: () {
-                                      showDialog<void>(
-                                        context: context,
-                                        barrierDismissible:
-                                            false, // user must tap button!
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: const Text(
-                                                'Confirmation du Refus'),
-                                            content: SingleChildScrollView(
-                                              child: ListBody(
-                                                children: const <Widget>[
-                                                  Text(
-                                                      'Voulez vous vraiment confirmer se refus ?'),
-                                                ],
-                                              ),
-                                            ),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                child: const Text(' Non'),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                              TextButton(
-                                                child: const Text('Oui'),
-                                                onPressed: () {
+                                     
                                                   Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: ((context) =>
                                                               const LivreurScreen(
                                                                   title: ''))));
-                                                },
-                                              ),
-                                            ],
-                                          );
                                         },
-                                      );
-                                    },
+                                    
                                     child: Container(
                                       height: 60,
                                       width: 120,
@@ -351,18 +412,19 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: const [
+                                             Icon(
+                                              Icons.arrow_back_ios,
+                                              color: Colors.white,
+                                            ),
                                             Text(
-                                              "Refuser",
+                                              "Retour",
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            Icon(
-                                              Icons.clear,
-                                              color: Colors.white,
-                                            )
+                                           
                                           ],
                                         ),
                                       ),
@@ -447,7 +509,7 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                       showDialog<void>(
                                         context: context,
                                         barrierDismissible:
-                                            false, // user must tap button!
+                                            false, 
                                         builder: (BuildContext context) {
                                           return AlertDialog(
                                             title:
@@ -511,8 +573,7 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                     )),
                                 GestureDetector(
                                     onTap: () {
-                                      MapUtils.openMap(position.latitude,
-                                          position.longitude);
+                                      openMap(widget.Liv);
                                     },
                                     child: Container(
                                       height: 60,
@@ -557,4 +618,6 @@ class _DetailLivraisonState extends State<DetailLivraison> {
           ]),
     ));
   }
+  
+  
 }

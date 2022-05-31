@@ -30,7 +30,7 @@ class _SignaleurState extends State<Signaleur> {
  final Set<Marker> _markers={};
  late String locLatitude;
  late String locLongitude;
-  void getLocation()async{
+  void getLocation() async{
     currentLocation.onLocationChanged.listen((LocationData loc){
  
       _controller?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
@@ -98,39 +98,7 @@ class _SignaleurState extends State<Signaleur> {
                         },
                         markers: _markers,
                        ),
-                      Positioned(
-                       left: MediaQuery.of(context).size.width-100,
-                       right:0.0 ,
-                       bottom:10,
-                       top:220 ,
-                       child:GestureDetector(
-                                        onTap: ()async {
-                                    
-                                          getLocation();
-                                          
-                                        },
-                                        child: Container(
-                 
-                                          margin: const EdgeInsets.symmetric(horizontal: 20),
-                                          decoration: BoxDecoration(
-                                            color: Colors.blue,
-                                            borderRadius: BorderRadius.circular(200),
-                                             boxShadow: const [
-                                              BoxShadow(
-                                                blurRadius: 16.0,
-                                                spreadRadius: 0.5,
-                                              color: Colors.grey,
-                                              offset: Offset(0.7, 0.7)
-                                            )
-                                            ]
-                                          ),
-                                        child: const Center(
-                                          child: Icon(
-                                            Icons.add_location,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      )),),
+                      
                    ], 
                  ),
                      

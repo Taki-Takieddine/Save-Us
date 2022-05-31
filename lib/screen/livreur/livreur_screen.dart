@@ -3,7 +3,7 @@ import 'package:applicationmemoire/screen/livreur/livraison_cart.dart';
 import 'package:applicationmemoire/screen/livreur/livreur_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 
 import '../navbar.dart';
 
@@ -53,8 +53,7 @@ class _LivreurScreenState extends State<LivreurScreen> {
     // continue accessing the position of the device.
     return await Geolocator.getCurrentPosition();
   }
-
- 
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,13 +84,18 @@ class _LivreurScreenState extends State<LivreurScreen> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData && (snapshot.data != null)) {
                           var position = snapshot.data!;
-                          return FutureBuilder<Livraison>(
+                          return FutureBuilder<List<Livraison>>(
                             future: LivreurBloc(position).getLivraison(),
                             builder: (BuildContext context, snapshot) {
                               if (snapshot.hasData && (snapshot.data != null)) {
-                                var livraison = snapshot.data!;
-                                // hena zawkiha kima tebghi
-                                return LivraisonCart(livraison: livraison);
+                                var livraison = snapshot.data;
+                                return SingleChildScrollView(
+                            child: ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: livraison?.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return LivraisonCart(livraison:livraison![index]);}));
                               } else if (snapshot.hasError) {
                                 return CircularProgressIndicator();
                               }
