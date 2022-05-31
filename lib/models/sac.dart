@@ -48,4 +48,9 @@ class Sac {
       'adresseResto': adresseResto,
     };
   }
+
+  @override
+  String toString() {
+    return 'sacs jay men idResto $idResto\n';
+  }
 }

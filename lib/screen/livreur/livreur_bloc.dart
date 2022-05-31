@@ -44,11 +44,11 @@ class LivreurBloc {
   ) {
     List<Livraison> livraisonPossible = [];
     for (Resto resto in restoList) {
-      final List<Sac> sacInRestoList = [];
-      sacInRestoList
-          .addAll(sacs.where((element) => element.idResto == resto.idUser));
-
       for (Signalement signalement in signalamentList) {
+        final List<Sac> sacInRestoList = [];
+
+        sacInRestoList
+            .addAll(sacs.where((element) => element.idResto == resto.idUser));
         // khess ykoun adena le nombre de sac  egale a le nombre de sdf
         int sacInRestoListLength = sacInRestoList.length;
         for (int i = 0;
