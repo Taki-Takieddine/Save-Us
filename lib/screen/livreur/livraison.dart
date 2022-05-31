@@ -16,7 +16,7 @@ class Livraison {
   final List<Sac> sacList;
   @override
   String toString() {
-    print('${resto.id} ${signalement.id} $dest');
+    print('${resto.id} ${signalement.id} $dest ${signalement.sdfNumber} ${sacList.length}');
     return super.toString();
   }
 }

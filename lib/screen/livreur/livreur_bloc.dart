@@ -37,49 +37,6 @@ class LivreurBloc {
     return Resto.fromMap(document.docs.first.data(), document.docs.first.id);
   }
 
-  /// yjib resto ge3 grib li 3andeh au moins un sac
-  Resto getClosestResto(List<Resto> restoList) {
-    Resto closestResto = restoList[0];
-    double smallestDistance = double.maxFinite;
-    for (Resto resto in restoList) {
-      double distanceInMeters = Geolocator.distanceBetween(
-        livreurPosition!.latitude,
-        livreurPosition!.longitude,
-        double.parse(resto.positionX),
-        double.parse(resto.positionY),
-      );
-
-      if (distanceInMeters < smallestDistance) {
-        closestResto = resto;
-        smallestDistance = distanceInMeters;
-      }
-    }
-    return closestResto;
-  }
-
-  /// yjib signlament ge3 grib par rapport lel resto ge3 grib
-  Signalement getClosestSignalementByResto(
-    List<Signalement> signalementsList,
-    Resto closestResto,
-  ) {
-    Signalement closestSignalement = signalementsList[0];
-    double smallestDistance = double.maxFinite;
-    for (Signalement signalement in signalementsList) {
-      double distanceInMeters = Geolocator.distanceBetween(
-        livreurPosition!.latitude,
-        livreurPosition!.longitude,
-        double.parse(signalement.positionX),
-        double.parse(signalement.positionY),
-      );
-
-      if (distanceInMeters < smallestDistance) {
-        closestSignalement = signalement;
-        smallestDistance = distanceInMeters;
-      }
-    }
-    return closestSignalement;
-  }
-
   List<Livraison> getLivraisonPossible(
     List<Resto> restoList,
     List<Signalement> signalamentList,
@@ -87,18 +44,20 @@ class LivreurBloc {
   ) {
     List<Livraison> livraisonPossible = [];
     for (Resto resto in restoList) {
-      List<Sac> sacInRestoList =
-          sacs.where((element) => element.idResto == resto.idUser).toList();
+      final List<Sac> sacInRestoList = [];
+      sacInRestoList
+          .addAll(sacs.where((element) => element.idResto == resto.idUser));
 
       for (Signalement signalement in signalamentList) {
-        if (sacInRestoList.length >= signalement.sdfNumber) {
-          // khess ykoun adena le nombre de sac  egale a le nombre de sdf
-          for (int i = 0;
-              i < (sacInRestoList.length - signalement.sdfNumber);
-              i++) {
-            sacInRestoList.removeLast();
-          }
+        int sacInRestoListLength = sacInRestoList.length;
+        for (int i = 0;
+            i < (sacInRestoListLength - signalement.sdfNumber);
+            i++) {
+          sacInRestoList.removeLast();
+        }
 
+        if (sacInRestoList.length == signalement.sdfNumber) {
+          // khess ykoun adena le nombre de sac  egale a le nombre de sdf
           double dsLivreurResto = Geolocator.distanceBetween(
             livreurPosition!.latitude,
             livreurPosition!.longitude,
@@ -113,13 +72,13 @@ class LivreurBloc {
             double.parse(signalement.positionY),
           );
           double total = dsLivreurResto + dsRestoSign;
-
-          livraisonPossible.add(Livraison(
+          Livraison livraison = Livraison(
             signalement: signalement,
             resto: resto,
-            sacList: sacInRestoList,
+            sacList: List.from(sacInRestoList),
             dest: total,
-          ));
+          );
+          livraisonPossible.add(livraison);
         }
       }
     }
@@ -139,7 +98,8 @@ class LivreurBloc {
     var livraisonPossibleList =
         getLivraisonPossible(restoList, signalements, sacs);
     livraisonPossibleList.sort((a, b) => a.dest.compareTo(b.dest));
-    print(livraisonPossibleList);
+    // print('******************************');
+    // print(livraisonPossibleList);
     return livraisonPossibleList.first;
   }
 }
