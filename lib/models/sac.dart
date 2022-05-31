@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Sac {
   Sac({
     required this.id,
@@ -20,8 +22,8 @@ class Sac {
   factory Sac.fromMapSac(Map<String, dynamic> data, String documentId) {
     final String id = documentId;
     final bool statue = data['statue'] as bool;
-    final DateTime dateDepo = data['dateDepo'] as DateTime;
-    final DateTime dateLiv = data['dateLiv'] as DateTime;
+    final DateTime dateDepo = (data['dateDepo'] as Timestamp).toDate();
+    final DateTime dateLiv = (data['dateLiv'] as Timestamp).toDate();
     final String idResto = data['idResto'] as String;
     final String idLivreur = data['idLivreur'] as String;
     final String adresseResto = data['adresseResto'] as String;

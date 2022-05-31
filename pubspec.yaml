@@ -46,6 +46,8 @@ dependencies:
   shared_preferences: ^2.0.15
   flutter_polyline_points: ^1.0.0
   url_launcher: ^6.1.2
+  map_launcher: ^2.2.3
+
  
 
 dev_dependencies:

@@ -1,14 +1,15 @@
 import 'package:applicationmemoire/auth/sign_up.dart';
 import 'package:applicationmemoire/common_widget/platform_exception_alert_dialog.dart';
 import 'package:applicationmemoire/screen/admin.dart';
-import 'package:applicationmemoire/screen/livreur.dart';
+import 'package:applicationmemoire/screen/livreur/livreur_screen.dart';
 import 'package:applicationmemoire/services/auth_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../screen/restaurent.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../screen/restaurent.dart';
 
 class LogIn extends StatefulWidget {
   final int type;
@@ -279,7 +280,7 @@ class _LogInState extends State<LogIn> {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: ((context) => const Livreur(
+                  builder: ((context) => const LivreurScreen(
                         title: '',
                       ))));
         }

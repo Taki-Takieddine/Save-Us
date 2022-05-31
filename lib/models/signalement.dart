@@ -1,10 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Signalement {
-  Signalement( {
+  Signalement({
     required this.id,
     required this.adressSDF,
     required this.description,
     required this.sdfNumber,
-   // required this.idResto,
+    // required this.idResto,
     required this.date,
     required this.etat,
     // positionX mean latitude
@@ -25,24 +27,25 @@ class Signalement {
   final int wilaya;
   final String adressSDF;
   //final String idLivreur;
-  
-  factory Signalement.fromMapSignalement(Map<String, dynamic> data, String documentId) {
+
+  factory Signalement.fromMapSignalement(
+      Map<String, dynamic> data, String documentId) {
     final String id = documentId;
-   // final String idResto = data['idResto'] as String;
-    final DateTime date =data['date'] as DateTime;
+    // final String idResto = data['idResto'] as String;
+    final DateTime date = (data['date'] as Timestamp).toDate();
     final int sdfNumber = data['sdfNumber'] as int;
     final String description = data['description'] as String;
-    final bool etat= data['etat'] as bool;
-    final String positionX=data['posituinX']as String;
-    final String positionY=data['posituinY']as String;
-    final String adressSDF=data['adressSDF']as String;
+    final bool etat = data['etat'] as bool;
+    final String positionX = data['positionX'] as String;
+    final String positionY = data['positionY'] as String;
+    final String adressSDF = data['adressSDF'] as String;
     final int wilaya = data['wilaya'] as int;
-   // final String idLivreur = data['idLivreur'] as String;
+    // final String idLivreur = data['idLivreur'] as String;
     return Signalement(
       id: id,
-     // idResto: idResto,
+      // idResto: idResto,
       date: date,
-      description:description,
+      description: description,
       sdfNumber: sdfNumber,
       etat: etat,
       positionX: positionX,
@@ -52,17 +55,15 @@ class Signalement {
   }
   Map<String, dynamic> toMapSignalement() {
     return {
-      
-     // 'idResto' : idResto,
+      // 'idResto' : idResto,
       'date': date,
-      'description':description,
+      'description': description,
       'sdfNumber': sdfNumber,
       'etat': etat,
       'positionX': positionX,
       'positionY': positionY, 'wilaya': wilaya,
-      'adressSDF':adressSDF,
-     // 'idLivreur': idLivreur,
-
+      'adressSDF': adressSDF,
+      // 'idLivreur': idLivreur,
     };
   }
 }

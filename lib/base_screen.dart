@@ -1,9 +1,9 @@
 import 'package:applicationmemoire/models/admin.dart';
+import 'package:applicationmemoire/models/livreur.dart';
 import 'package:applicationmemoire/models/resto.dart';
 import 'package:applicationmemoire/models/user.dart';
-import 'package:applicationmemoire/models/livreur.dart';
 import 'package:applicationmemoire/screen/admin.dart';
-import 'package:applicationmemoire/screen/livreur.dart';
+import 'package:applicationmemoire/screen/livreur/livreur_screen.dart';
 import 'package:applicationmemoire/screen/restaurent.dart';
 import 'package:applicationmemoire/services/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -62,7 +62,7 @@ class _BaseScreenState extends State<BaseScreen> {
           'nombreDonation': snapshot.docs[0]['nombreDonation'],
           'show': snapshot.docs[0]['show'],
           'positionX': snapshot.docs[0]['positionX'],
-         'positionY': snapshot.docs[0]['positionY'] ,
+          'positionY': snapshot.docs[0]['positionY'],
         }, snapshot.docs[0].id);
       } else if (snapshot.docs[0]['type'] == 2) {
         return Livreurs.fromMap({
@@ -73,7 +73,6 @@ class _BaseScreenState extends State<BaseScreen> {
           'idUser': snapshot.docs[0]['idUser'],
           'wilaya': snapshot.docs[0]['wilaya'],
           'show': snapshot.docs[0]['show'],
-          
         }, snapshot.docs[0].id);
       }
     }
@@ -137,7 +136,7 @@ class _BaseScreenState extends State<BaseScreen> {
                       }
                       if (user.type == 2) {
                         return MaterialPageRoute(
-                          builder: (context) => const Livreur(
+                          builder: (context) => const LivreurScreen(
                             title: '',
                           ),
                         );

@@ -1,15 +1,15 @@
 import 'package:applicationmemoire/auth/localisation.dart';
 import 'package:applicationmemoire/auth/widgets/text_field_sign_up.dart';
 import 'package:applicationmemoire/models/livreur.dart';
-import 'package:applicationmemoire/screen/livreur.dart';
-import 'package:applicationmemoire/screen/restaurent.dart';
 import 'package:applicationmemoire/models/user.dart';
+import 'package:applicationmemoire/screen/livreur/livreur_screen.dart';
+import 'package:applicationmemoire/screen/restaurent.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
-import 'package:geolocator/geolocator.dart';
+
 import '../models/resto.dart';
 import '../models/user.dart';
 import 'login.dart';
@@ -44,13 +44,13 @@ class _SignUPState extends State<SignUP> {
 
   late final _formKey = GlobalKey<FormState>();
 
- @override
- @override
- void initState() {
-   getUserLocation();
-   super.initState();
-   
- }
+  @override
+  @override
+  void initState() {
+    getUserLocation();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -338,8 +338,12 @@ class _SignUPState extends State<SignUP> {
                                         idUser: value.user!.uid,
                                         nombreDonationTotal: 0,
                                         nombreDonation: 0,
-                                        stars: 1, show: false, positionX:( position.latitude).toString(),
-                                        positionY: (position.longitude).toString(),
+                                        stars: 1,
+                                        show: false,
+                                        positionX:
+                                            (position.latitude).toString(),
+                                        positionY:
+                                            (position.longitude).toString(),
                                       );
                                       createResto(resto);
                                     }
@@ -372,7 +376,7 @@ class _SignUPState extends State<SignUP> {
                                         context,
                                         MaterialPageRoute(
                                             builder: ((context) =>
-                                                const Livreur(
+                                                const LivreurScreen(
                                                   title: '',
                                                 ))));
                                   }
