@@ -63,54 +63,54 @@ class _LivreurScreenState extends State<LivreurScreen> {
           backgroundColor: Colors.purple,
         ),
         body: SafeArea(
-            child: SingleChildScrollView(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: <Color>[
-                  Colors.purple,
-                  Colors.blueAccent,
-                ])),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-              child: Column(
-                children: [
-                  FutureBuilder<Position>(
-                      future: determinePosition(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData && (snapshot.data != null)) {
-                          var position = snapshot.data!;
-                          return FutureBuilder<List<Livraison>>(
-                            future: LivreurBloc(position).getLivraison(),
-                            builder: (BuildContext context, snapshot) {
-                              if (snapshot.hasData && (snapshot.data != null)) {
-                                var livraison = snapshot.data;
-                                return SingleChildScrollView(
-                            child: ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: livraison?.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return LivraisonCart(livraison:livraison![index]);}));
-                              } else if (snapshot.hasError) {
-                                return CircularProgressIndicator();
-                              }
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: <Color>[
+                    Colors.purple,
+                    Colors.blueAccent,
+                  ])),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      FutureBuilder<Position>(
+                          future: determinePosition(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData && (snapshot.data != null)) {
+                              var position = snapshot.data!;
+                              return FutureBuilder<List<Livraison>>(
+                                future: LivreurBloc(position).getLivraison(),
+                                builder: (BuildContext context, snapshot) {
+                                  if (snapshot.hasData && (snapshot.data != null)) {
+                                    var livraison = snapshot.data;
+                                    return SingleChildScrollView(
+                                child: ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: livraison?.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return LivraisonCart(livraison:livraison![index]);}));
+                                  } else if (snapshot.hasError) {
+                                    return CircularProgressIndicator();
+                                  }
+                                  return CircularProgressIndicator();
+                                },
+                              );
+                            } else if (snapshot.hasError) {
                               return CircularProgressIndicator();
-                            },
-                          );
-                        } else if (snapshot.hasError) {
-                          return CircularProgressIndicator();
-                        }
-                        return CircularProgressIndicator();
-                      })
-                ],
+                            }
+                            return CircularProgressIndicator();
+                          })
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
-        )));
+            )));
   }
 }

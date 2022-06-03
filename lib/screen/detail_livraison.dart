@@ -618,6 +618,4 @@ class _DetailLivraisonState extends State<DetailLivraison> {
           ]),
     ));
   }
-  
-  
 }
