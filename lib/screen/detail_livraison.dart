@@ -1,8 +1,11 @@
 
-import 'package:applicationmemoire/auth/localisation.dart';
+import 'package:applicationmemoire/models/resto.dart';
+import 'package:applicationmemoire/models/sac.dart';
 import 'package:applicationmemoire/screen/livreur/livraison.dart';
 import 'package:applicationmemoire/screen/livreur/livreur_screen.dart';
 import 'package:applicationmemoire/screen/navbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -36,7 +39,7 @@ class _DetailLivraisonState extends State<DetailLivraison> {
       //throw 'Could not open the map.';
     }
   }
-  
+  final livreur =FirebaseAuth.instance.currentUser!.uid;
   @override
   void initState() {
        currentLocation.onLocationChanged.listen((LocationData loc){
@@ -455,11 +458,23 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                                                 ),
                                                 TextButton(
                                                   child: const Text('Oui'),
-                                                  onPressed: () {
+                                                  onPressed: () async {
                                                     Navigator.of(context).pop();
                                                     setState(() {
                                                       see = 1;
                                                     });
+                                                    for(var j=0; j<widget.Liv.sacList.length;j++){
+                                                      final sac= Sac(id: widget.Liv.sacList[j].id,
+                                                       dateDepo: widget.Liv.sacList[j].dateDepo,
+                                                        dateLiv: DateTime.now(),
+                                                         idResto:widget.Liv.sacList[j].idResto,
+                                                          statue: false,
+                                                           idLivreur:livreur,
+                                                            adresseResto: widget.Liv.sacList[j].adresseResto);
+                                                            await FirebaseFirestore.instance
+                                                              .collection('sac').doc(widget.Liv.sacList[j].id)
+                                                              .set(sac.toMapSac());
+                                                    }
                                                   },
                                                 ),
                                               ],
@@ -505,7 +520,26 @@ class _DetailLivraisonState extends State<DetailLivraison> {
                             Row(
                               children: [
                                 GestureDetector(
-                                    onTap: () {
+                                    onTap: () async {
+                                       for(var i=0;i<widget.Liv.sacList.length;i++)
+                                            {
+                                              await FirebaseFirestore.instance.collection('sac').doc(widget.Liv.sacList[i].id).delete();
+                                            }
+                                            await FirebaseFirestore.instance.collection('signalement').doc(widget.Liv.signalement.id).delete();
+                                            final user=Resto(id: widget.Liv.resto.id,
+                                             type:widget.Liv.resto.type, idUser:widget.Liv.resto.idUser, 
+                                             name:widget.Liv.resto.name, 
+                                             phoneNumber:widget.Liv.resto.phoneNumber, 
+                                             wilaya: widget.Liv.resto.wilaya,
+                                              email:widget.Liv.resto.email,
+                                               nomresto:widget.Liv.resto.nomresto,
+                                                adressresto:widget.Liv.resto.adressresto,
+                                                 nombreDonationTotal:widget.Liv.resto.nombreDonationTotal,
+                                                  nombreDonation: (widget.Liv.resto.nombreDonation-widget.Liv.sacList.length), stars:widget.Liv.resto.stars, 
+                                                  show:widget.Liv.resto.show, positionX: widget.Liv.resto.positionX, positionY: widget.Liv.resto.positionY);
+                                                   await FirebaseFirestore.instance
+                                                    .collection('Users').doc(widget.Liv.resto.id)
+                                                    .set(user.toMapResto());
                                       showDialog<void>(
                                         context: context,
                                         barrierDismissible:
