@@ -23,11 +23,14 @@ class _Restaurent extends State<Restaurent> {
   String idResto= FirebaseAuth.instance.currentUser!.uid;
   var userInfo=FirebaseFirestore.instance
         .collection('Users').where('idUser',isEqualTo:FirebaseAuth.instance.currentUser!.uid);
+        
  int index=0;
 var nbsac=0;
+var nbsacT=0;
 getNombreDonation()async{
   final snapshot=await userInfo.get();
  nbsac=snapshot.docs[0]['nombreDonation'];
+ nbsacT=snapshot.docs[0]['nombreDonationTotal'];
 }
 @override
   void initState() {
@@ -156,7 +159,16 @@ getNombreDonation()async{
                             borderRadius: BorderRadius.circular(20),
                             color: Colors.transparent.withOpacity(0.2),
                           ),
-                          child: const Icon(Icons.star_rounded ,color: Colors.white,size: 50,),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: 
+                          [if ((nbsacT>0))
+                            const Icon(Icons.star_rounded ,color: Colors.white,size: 50,),
+                             if(2000<nbsacT )
+                            const Icon(Icons.star_rounded ,color: Colors.white,size: 50,),
+                            if ((nbsacT>500))
+                            const Icon(Icons.star_rounded ,color: Colors.white,size: 50,)
+                            ]),
                         ),
                       ),
                     ],
@@ -257,29 +269,29 @@ getNombreDonation()async{
                                                   if(snapshot.data?.docs[index]['statue']==true){
                                                  await FirebaseFirestore.instance.collection('sac').doc(snapshot.data?.docs[index].id).delete();
                                                  final snapshots = await FirebaseFirestore.instance
-                                                    .collection('Users').where( 'idUser' ,isEqualTo: idResto)
-                                                    .get();
+                                          .collection('Users').where( 'idUser' ,isEqualTo: idResto)
+                                          .get();
                                                             final user=Resto(id: ''
-                                                  , email: snapshots.docs[0]['email']
-                                                  , type: snapshots.docs[0]['type'],
-                                                    idUser: snapshots.docs[0]['idUser'],
-                                                    name: snapshots.docs[0]['name'], 
-                                                    phoneNumber:snapshots.docs[0]['phoneNumber'],
-                                                    wilaya: snapshots.docs[0]['wilaya'],
-                                                    adressresto: snapshots.docs[0]['adressresto'], 
-                                                    nombreDonation:snapshots.docs[0]['nombreDonation'] -1,
-                                                      nombreDonationTotal:snapshots.docs[0]['nombreDonation'] -1,
-                                                      nomresto:snapshots.docs[0]['nomresto'],
-                                                      stars: snapshots.docs[0]['stars'], show: true,
-                                                      positionX: snapshots.docs[0]['positionX'],
-                                                      positionY: snapshots.docs[0]['positionY'] ,);
-                                                      await FirebaseFirestore.instance
-                                                    .collection('Users').doc(snapshots.docs[0].id)
-                                                    .set(user.toMapResto());
-                                                    setState(() {
-                                                      getNombreDonation();
-                                                    });
-                                                      }
+                                          , email: snapshots.docs[0]['email']
+                                          , type: snapshots.docs[0]['type'],
+                                            idUser: snapshots.docs[0]['idUser'],
+                                            name: snapshots.docs[0]['name'], 
+                                            phoneNumber:snapshots.docs[0]['phoneNumber'],
+                                            wilaya: snapshots.docs[0]['wilaya'],
+                                            adressresto: snapshots.docs[0]['adressresto'], 
+                                            nombreDonation:snapshots.docs[0]['nombreDonation'] -1,
+                                              nombreDonationTotal:snapshots.docs[0]['nombreDonation'] -1,
+                                              nomresto:snapshots.docs[0]['nomresto'],
+                                              stars: snapshots.docs[0]['stars'], show: true,
+                                              positionX: snapshots.docs[0]['positionX'],
+                                               positionY: snapshots.docs[0]['positionY'] ,);
+                                              await FirebaseFirestore.instance
+                                          .collection('Users').doc(snapshots.docs[0].id)
+                                          .set(user.toMapResto());
+                                                 setState(() {
+                                                   getNombreDonation();
+                                                 });
+                                                  }
                                                   else{
                                                    showDialog<void>(
                                                   context: context,
